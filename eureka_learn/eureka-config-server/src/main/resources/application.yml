@@ -17,11 +17,11 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/forezp/SpringcloudConfig
-          searchPaths: respo
-          username:
+          uri: https://github.com/xionghao5/springcloud_learn
+          searchPaths: spring_cloud_config
+          username: github登录账号
           password:
-      label: master
+      label: main
   application:
     name: config-server
 
