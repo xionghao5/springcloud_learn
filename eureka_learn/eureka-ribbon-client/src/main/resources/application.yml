@@ -1,0 +1,10 @@
+server:
+  port: 9003
+spring:
+  application:
+    name: eureka-ribbon-client
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/

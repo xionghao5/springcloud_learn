@@ -1,0 +1,6 @@
+server:
+  port: 9001
+
+foo: hello SpringCloud
+
+eureka-config-server: hello config server

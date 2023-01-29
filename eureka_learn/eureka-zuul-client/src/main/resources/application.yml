@@ -1,0 +1,20 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+server:
+  port: 9007
+spring:
+  application:
+    name: eureka-zuul-client
+zuul:
+  routes:
+    ecapi:
+      path: /ec/**
+      serviceId: eureka-client
+    ercapi:
+      path: /erc/**
+      serviceId: eureka-ribbon-client
+    efcapi:
+      path: /efc/**
+      serviceId: eureka-feign-client

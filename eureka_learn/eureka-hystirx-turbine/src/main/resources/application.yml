@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: eureka-hystrix-turbine
+server:
+  port: 9006
+security:
+  basic:
+    enabled: false
+turbine:
+  aggregator:
+    clusterConfig: default
+  appConfig: eureka-ribbon-client,eureka-feign-client
+  clusterNameExpression: new String("default")
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/

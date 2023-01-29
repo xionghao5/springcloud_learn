@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: eureka-config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+    active: native
+
+server:
+  port: 9008
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
