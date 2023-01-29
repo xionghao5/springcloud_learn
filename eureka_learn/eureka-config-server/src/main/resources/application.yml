@@ -1,13 +1,30 @@
+## 本地模式
+#spring:
+#  application:
+#    name: eureka-config-server
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations: classpath:/shared
+#  profiles:
+#    active: native
+
+
+# remote git 模式
 spring:
-  application:
-    name: eureka-config-server
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/shared
-  profiles:
-    active: native
+        git:
+          uri: https://github.com/forezp/SpringcloudConfig
+          searchPaths: respo
+          username:
+          password:
+      label: master
+  application:
+    name: config-server
+
 
 server:
   port: 9008
