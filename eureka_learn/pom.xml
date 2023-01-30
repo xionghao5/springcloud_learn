@@ -18,6 +18,7 @@
         <module>eureka-hystirx-turbine</module>
         <module>eureka-zuul-client</module>
         <module>eureka-config-server</module>
+        <module>eureka-zipkin-server</module>
     </modules>
 
 
