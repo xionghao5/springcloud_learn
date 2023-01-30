@@ -3,15 +3,18 @@ spring:
     name: eureka-client
   cloud:
     config:
-      uri: http://localhost:9008
       fail-fast: true
+      discovery:
+        enabled: true
+        serviceId: eureka-config-server
   profiles:
     active: dev
+
+server:
+  port: 9001
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9000/eureka/
-
-
 
