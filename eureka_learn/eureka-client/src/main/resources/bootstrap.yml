@@ -16,6 +16,10 @@ spring:
     sampler:
       percentage: 1.0
 
+management:
+  security:
+    enabled: false
+
 server:
   port: 9001
 

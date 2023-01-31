@@ -16,9 +16,10 @@
         <module>eureka-ribbon-client</module>
         <module>eureka-feign-client</module>
         <module>eureka-hystirx-turbine</module>
-        <module>eureka-zuul-client</module>
+        <module>eureka-zuul-server</module>
         <module>eureka-config-server</module>
         <module>eureka-zipkin-server</module>
+        <module>eureka-admin-server</module>
     </modules>
 
 

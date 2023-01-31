@@ -6,7 +6,7 @@ server:
   port: 9007
 spring:
   application:
-    name: eureka-zuul-client
+    name: eureka-zuul-server
   sleuth:
     sampler:
       percentage: 1.0
