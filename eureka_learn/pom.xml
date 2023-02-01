@@ -20,6 +20,9 @@
         <module>eureka-config-server</module>
         <module>eureka-zipkin-server</module>
         <module>eureka-admin-server</module>
+        <module>service-order</module>
+        <module>service-account</module>
+        <module>service-business</module>
     </modules>
 
 
