@@ -19,7 +19,7 @@
 
 分布式事务seata
 
-  1.springboot,springcloud,springcloudAlibaba,seata的版本要对应，否则会报错，导致项目无法启动，具体版本可以去SpringCloudAlibaba的github查看
+  1.springboot,springcloud,springcloudAlibaba,seata的版本要对应，否则会报错，导致项目无法启动，具体版本可以去SpringCloudAlibaba的github查看。
     本demo的版本，springboot:1.5.2.RELEASE,springcloud:Dalston.SR1,spring-cloud-starter-alibaba-seata:1.5.1.RELEASE,seata:0.9.0
     
   2.seata的AT模式需要代理数据源，所以低版本的seata需要手动注入数据源的bean,并且在启动类上要加上@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
