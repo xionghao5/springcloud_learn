@@ -22,7 +22,8 @@
         <module>eureka-admin-server</module>
         <module>service-order</module>
         <module>service-account</module>
-        <module>service-business</module>
+        <module>rocketmq-consumer</module>
+        <module>rocketmq-producer</module>
     </modules>
 
 
