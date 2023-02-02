@@ -26,11 +26,11 @@
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.netflix.feign</groupId>-->
-<!--            <artifactId>feign-httpclient</artifactId>-->
-<!--            <version>RELEASE</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+            <version>RELEASE</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.seata/seata-all -->
         <dependency>

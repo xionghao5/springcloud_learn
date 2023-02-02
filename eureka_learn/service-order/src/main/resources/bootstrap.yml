@@ -30,9 +30,3 @@ starfish:
         pagination:
           interceptor: true
 
-seata:
-  support:
-    spring:
-      datasource:
-        autoproxy:
-
