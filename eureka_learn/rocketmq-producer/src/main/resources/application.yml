@@ -8,8 +8,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9000/eureka/
-
-rocketmq:
-  name-server: 127.0.0.1:9876
-  producer:
-    group: rm-producer-group
