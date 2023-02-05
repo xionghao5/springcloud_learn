@@ -40,6 +40,5 @@ public class OrderController {
         orderService.testSeata();
     }
 
-
 }
 
