@@ -1,14 +1,12 @@
 package com.gua.as.controller;
 
 
-import com.gua.as.async.BillMoneyService;
 import com.gua.as.async.BillMoneySumAsyncService;
 import com.gua.as.entity.Bill;
 import com.gua.as.service.IBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ExecutionException;

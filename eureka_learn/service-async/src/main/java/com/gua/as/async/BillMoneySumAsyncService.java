@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -17,6 +16,19 @@ public class BillMoneySumAsyncService {
     private BillMoneyService billMoneyService;
 
 
+    /**
+     * 多线程查询数据库，并合并数据库查询结果并返回
+     *
+     * 1.需要配置线程池
+     * 2.设置@EnableAsync注解
+     * 3.在需要多线程执行的方法上使用@Async注解,并且方法返回Future<T>
+     * 4.不断轮询Future的状态，等待所有线程执行完，并返回所有线程结果
+     * 5.聚合所有线程结果并返回
+     * @param userId
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public Integer testAsync(String userId) throws ExecutionException, InterruptedException {
 
         Future<Integer> future1 = billMoneyService.moneySum(userId, 0);

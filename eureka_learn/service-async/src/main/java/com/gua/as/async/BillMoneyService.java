@@ -13,8 +13,6 @@ import java.util.concurrent.Future;
 public class BillMoneyService {
     @Autowired
     private IBillService billService;
-    private Future<Integer> a;
-
 
     @Async("threadPoolTaskExecutor")
     public Future<Integer> moneySum(String userId, Integer type) {
