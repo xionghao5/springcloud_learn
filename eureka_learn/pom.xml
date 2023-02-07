@@ -25,6 +25,7 @@
         <module>service-async</module>
         <module>rocketmq-consumer</module>
         <module>rocketmq-producer</module>
+        <module>gm-product</module>
     </modules>
 
 
