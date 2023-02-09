@@ -1,7 +1,7 @@
 package com.gua.gm.service;
 
-import com.gua.gm.entity.ProductCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gua.gm.entity.ProductCategory;
 
 /**
  * <p>
