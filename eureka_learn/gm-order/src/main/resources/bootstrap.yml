@@ -1,0 +1,28 @@
+server:
+  port: 9103
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+spring:
+  application:
+    name: gm-order
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/gm?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT&autoReconnect=true&useSSL=false
+    username: root
+    password: 1234
+
+#mybatisplus
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+starfish:
+  data:
+    jdbc:
+      mybatis-plus:
+        pagination:
+          interceptor: true
+
