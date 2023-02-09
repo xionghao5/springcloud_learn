@@ -14,8 +14,8 @@ import java.io.Serializable;
  * @author auto-genergator
  * @since 2023-02-09
  */
-@TableName("pms_product_category")
-public class ProductCategory extends Model<ProductCategory> {
+@TableName("pms_product")
+public class Product extends Model<Product> {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,9 +23,9 @@ public class ProductCategory extends Model<ProductCategory> {
     private Long id;
 
     /**
-     * 上级分类的编号：0表示一级分类
+     * 商品分类id
      */
-    private Long parentId;
+    private Long productCategoryId;
 
     /**
      * 名称
@@ -33,14 +33,9 @@ public class ProductCategory extends Model<ProductCategory> {
     private String name;
 
     /**
-     * 分类级别：0表示1级；1表示2级
+     * 金额
      */
-    private Integer level;
-
-    /**
-     * 排序
-     */
-    private Integer sort;
+    private Integer money;
 
 
     public Long getId() {
@@ -51,12 +46,12 @@ public class ProductCategory extends Model<ProductCategory> {
         this.id = id;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public Long getProductCategoryId() {
+        return productCategoryId;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setProductCategoryId(Long productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 
     public String getName() {
@@ -67,31 +62,21 @@ public class ProductCategory extends Model<ProductCategory> {
         this.name = name;
     }
 
-    public Integer getLevel() {
-        return level;
+    public Integer getMoney() {
+        return money;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
     public static final String ID = "id";
 
-    public static final String PARENT_ID = "parent_id";
+    public static final String PRODUCT_CATEGORY_ID = "product_category_id";
 
     public static final String NAME = "name";
 
-    public static final String LEVEL = "level";
-
-    public static final String SORT = "sort";
+    public static final String MONEY = "money";
 
     @Override
     protected Serializable pkVal() {
@@ -100,12 +85,11 @@ public class ProductCategory extends Model<ProductCategory> {
 
     @Override
     public String toString() {
-        return "ProductCategory{" +
+        return "Product{" +
         "id=" + id +
-        ", parentId=" + parentId +
+        ", productCategoryId=" + productCategoryId +
         ", name=" + name +
-        ", level=" + level +
-        ", sort=" + sort +
+        ", money=" + money +
         "}";
     }
 }

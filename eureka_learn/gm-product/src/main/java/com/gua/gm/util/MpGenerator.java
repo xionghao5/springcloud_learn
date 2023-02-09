@@ -72,7 +72,7 @@ public class MpGenerator {
         strategy.setTablePrefix(new String[]{tablePrefix});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         strategy.setEntityColumnConstant(true);
-        strategy.setInclude(new String[]{"pms_product_category"}); // 需要生成的表
+        strategy.setInclude(new String[]{"pms_product"}); // 需要生成的表
         mpg.setStrategy(strategy);
 
         // 包配置

@@ -2,11 +2,12 @@ package com.gua.gm.controller;
 
 
 import com.gua.gm.entity.ProductCategory;
+import com.gua.gm.mapper.ProductCategoryMapper;
 import com.gua.gm.service.IProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -27,9 +28,14 @@ public class ProductCategoryController {
     }
 
     @PostMapping("add")
-    public ProductCategory addProductCategory(ProductCategory productCategory) {
+    public ProductCategory addProductCategory(@RequestBody ProductCategory productCategory) {
         productCategoryService.save(productCategory);
         return productCategory;
+    }
+
+    @GetMapping("getAll")
+    public List<ProductCategory> getAllProductCategory() {
+        return productCategoryService.list();
     }
 
 }
