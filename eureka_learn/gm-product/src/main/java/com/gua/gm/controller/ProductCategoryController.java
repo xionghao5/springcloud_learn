@@ -2,9 +2,7 @@ package com.gua.gm.controller;
 
 
 import com.gua.gm.entity.ProductCategory;
-import com.gua.gm.mapper.ProductCategoryMapper;
 import com.gua.gm.service.IProductCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

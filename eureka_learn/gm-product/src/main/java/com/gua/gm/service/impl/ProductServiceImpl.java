@@ -1,9 +1,9 @@
 package com.gua.gm.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gua.gm.entity.Product;
 import com.gua.gm.mapper.ProductMapper;
 import com.gua.gm.service.IProductService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
