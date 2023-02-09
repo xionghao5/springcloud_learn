@@ -6,5 +6,4 @@ import lombok.Data;
 public class ProductQo {
     private Long productId;
     private Integer count;
-    private Integer money;
 }

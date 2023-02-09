@@ -3,10 +3,7 @@ package com.gua.gm.controller;
 
 import com.gua.gm.entity.Customer;
 import com.gua.gm.service.ICustomerService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -30,6 +27,11 @@ public class CustomerController {
     public Customer addCustomer(@RequestBody Customer customer) {
         customerService.save(customer);
         return customer;
+    }
+
+    @GetMapping("get")
+    public Customer getCustomer(Long cusId) {
+        return customerService.getById(cusId);
     }
 
 

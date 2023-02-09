@@ -3,10 +3,7 @@ package com.gua.gm.controller;
 
 import com.gua.gm.entity.Product;
 import com.gua.gm.service.IProductService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -30,6 +27,11 @@ public class ProductController {
     public Product addProductCategory(@RequestBody Product product) {
         productService.save(product);
         return product;
+    }
+
+    @GetMapping("get")
+    public Product getCustomer(Long productId) {
+        return productService.getById(productId);
     }
 
 }
