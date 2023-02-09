@@ -1,9 +1,9 @@
-package com.gua.gc.service.impl;
+package com.gua.gm.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gua.gc.entity.Customer;
-import com.gua.gc.mapper.CustomerMapper;
-import com.gua.gc.service.ICustomerService;
+import com.gua.gm.entity.Customer;
+import com.gua.gm.mapper.CustomerMapper;
+import com.gua.gm.service.ICustomerService;
 import org.springframework.stereotype.Service;
 
 /**

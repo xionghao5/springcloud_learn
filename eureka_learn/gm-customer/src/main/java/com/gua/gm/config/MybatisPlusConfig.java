@@ -1,4 +1,4 @@
-package com.gua.gc.config;
+package com.gua.gm.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 //Spring boot方式
 @Configuration
-@MapperScan("com.gua.gc.**.mapper")
+@MapperScan("com.gua.gm.**.mapper")
 public class MybatisPlusConfig {
 
     @Bean

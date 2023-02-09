@@ -1,4 +1,4 @@
-package com.gua.gc.entity;
+package com.gua.gm.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

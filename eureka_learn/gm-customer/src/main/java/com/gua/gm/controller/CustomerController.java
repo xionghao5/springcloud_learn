@@ -1,8 +1,8 @@
-package com.gua.gc.controller;
+package com.gua.gm.controller;
 
 
-import com.gua.gc.entity.Customer;
-import com.gua.gc.service.ICustomerService;
+import com.gua.gm.entity.Customer;
+import com.gua.gm.service.ICustomerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

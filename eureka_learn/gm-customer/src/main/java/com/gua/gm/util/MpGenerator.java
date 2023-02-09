@@ -1,4 +1,4 @@
-package com.gua.gc.util;
+package com.gua.gm.util;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -77,7 +77,7 @@ public class MpGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.gua.gc");
+        pc.setParent("com.gua.gm");
         pc.setEntity("entity");
         pc.setMapper("mapper");
         pc.setService("service");

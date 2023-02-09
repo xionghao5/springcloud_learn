@@ -1,4 +1,4 @@
-package com.gua.gc;
+package com.gua.gm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
