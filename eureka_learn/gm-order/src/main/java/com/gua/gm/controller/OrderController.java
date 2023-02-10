@@ -11,6 +11,8 @@ import com.gua.gm.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * <p>
  *  前端控制器
@@ -34,7 +36,7 @@ public class OrderController {
     private GmProductClient gmProductClient;
 
     @PostMapping("add")
-    public Order addProductCategory(@RequestBody OrderQO orderQO) {
+    public Order addProductCategory(@RequestBody @Valid OrderQO orderQO) {
         return orderService.addOrder(orderQO);
     }
 
