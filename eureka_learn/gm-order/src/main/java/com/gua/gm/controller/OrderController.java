@@ -8,6 +8,8 @@ import com.gua.gm.client.pojo.Product;
 import com.gua.gm.entity.Order;
 import com.gua.gm.pojo.qo.OrderQO;
 import com.gua.gm.service.IOrderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/order")
+@Api(tags = "订单模块相关接口")
 public class OrderController {
 
     @Autowired
@@ -36,6 +39,7 @@ public class OrderController {
     private GmProductClient gmProductClient;
 
     @PostMapping("add")
+    @ApiOperation(value = "新增订单",notes = "根据顾客和商品创建订单")
     public Order addProductCategory(@RequestBody @Valid OrderQO orderQO) {
         return orderService.addOrder(orderQO);
     }
