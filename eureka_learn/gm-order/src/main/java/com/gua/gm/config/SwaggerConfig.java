@@ -12,6 +12,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 
+/**
+ * swagger2的这个配置需要根据版本进行设置
+ */
 @Configuration
 @EnableSwagger2WebMvc
 public class SwaggerConfig {
