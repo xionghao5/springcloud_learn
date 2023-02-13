@@ -6,37 +6,41 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
-
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * swagger2的这个配置需要根据版本进行设置
+ 1. swagger配置类
+ 访问路径：localhost:port/swagger-ui.html
  */
 @Configuration
-@EnableSwagger2WebMvc
+@EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    Docket docket() {
+    public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                //是否开启 (true 开启  false隐藏。生产环境建议隐藏)
+                //.enable(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.gua.gm"))
+                //扫描的路径包,设置basePackage会将包下的所有被@Api标记类的所有方法作为api
+                .apis(RequestHandlerSelectors.basePackage("com.gua.gm.controller"))
+                //指定路径处理PathSelectors.any()代表所有的路径
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("订单模块API文档")
-                .description("gm-电商项目订单模块的API文档")
-                .termsOfServiceUrl("http://127.0.0.1:9000")
-                .version("1.0")
-                .contact(new Contact("xionghao5",
-                        "http://127.0.0.1:9000",
-                        "xionghao5@163.com"))
+                //设置文档标题(API名称)
+                .title("订单模块")
+                //文档描述
+                .description("接口说明")
+                //服务条款URL
+                .termsOfServiceUrl("http://localhost:9103/")
+                //版本号
+                .version("1.0.0")
                 .build();
     }
 }

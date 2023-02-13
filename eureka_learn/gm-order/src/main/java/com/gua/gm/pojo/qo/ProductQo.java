@@ -8,7 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ApiModel(value = "商品请求对象")
+@ApiModel(value = "productQo", description = "商品请求对象")
 public class ProductQo {
     @NotNull
     @ApiModelProperty(value = "商品id", required = true)

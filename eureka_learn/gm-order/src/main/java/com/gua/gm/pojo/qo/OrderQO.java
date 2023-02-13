@@ -10,13 +10,13 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-@ApiModel(value = "订单请求对象")
+@ApiModel(value = "orderQO", description = "订单请求对象")
 public class OrderQO {
     @NotNull
-    @ApiModelProperty(value = "顾客id",required = true)
+    @ApiModelProperty(value = "cusId", name = "顾客id", required = true)
     private Long cusId;
 
     @Valid
-    @ApiModelProperty(value = "商品对象集合",required = true)
+    @ApiModelProperty(value = "productQoList", name = "商品对象集合", required = true)
     private List<ProductQo> productQoList;
 }

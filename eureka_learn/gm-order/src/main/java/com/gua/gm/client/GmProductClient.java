@@ -1,6 +1,5 @@
 package com.gua.gm.client;
 
-import com.gua.gm.client.pojo.Customer;
 import com.gua.gm.client.pojo.Product;
 import com.gua.gm.config.FeignConfig;
 import org.springframework.cloud.netflix.feign.FeignClient;
