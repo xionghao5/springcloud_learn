@@ -57,6 +57,8 @@
             <version>26.0-jre</version>
         </dependency>
 
+        <!--集成日志-->
+
 
 
         <!-- mysql驱动8.0 -->
