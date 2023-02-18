@@ -28,6 +28,7 @@
         <module>gm-product</module>
         <module>gm-customer</module>
         <module>gm-order</module>
+        <module>gm-chatgpt</module>
     </modules>
 
 
