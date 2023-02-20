@@ -29,6 +29,7 @@
         <module>gm-customer</module>
         <module>gm-order</module>
         <module>gm-chatgpt</module>
+        <module>gm-flink</module>
     </modules>
 
 
