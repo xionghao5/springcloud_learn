@@ -30,6 +30,7 @@
         <module>gm-order</module>
         <module>gm-chatgpt</module>
         <module>gm-flink</module>
+        <module>gm-portal</module>
     </modules>
 
 
