@@ -1,0 +1,11 @@
+server:
+  port: 9105
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+
+
+## 算法相关

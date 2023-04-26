@@ -31,6 +31,7 @@
         <module>gm-chatgpt</module>
         <module>gm-flink</module>
         <module>gm-portal</module>
+        <module>gm-suanfa</module>
     </modules>
 
 
