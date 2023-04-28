@@ -32,6 +32,7 @@
         <module>gm-flink</module>
         <module>gm-portal</module>
         <module>gm-suanfa</module>
+        <module>gm-interview</module>
     </modules>
 
 
