@@ -1,7 +1,9 @@
 package com.gua.sf.leetcode;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Mianshi75 {
 
@@ -155,6 +157,55 @@ public class Mianshi75 {
         return number >= n;
     }
 
+    /**
+     *
+     * 345. 反转字符串中的元音字母
+     * 给你一个字符串 s ，仅反转字符串中的所有元音字母，并返回结果字符串。
+     *
+     * 元音字母包括 'a'、'e'、'i'、'o'、'u'，且可能以大小写两种形式出现不止一次。
+     */
+
+        static char[] vowels = new char[]{'a','e','i','o','u'};
+        static Set<Character> set = new HashSet<>();
+        static {
+            for (char c : vowels) {
+                set.add(c);
+                set.add(Character.toUpperCase(c));
+            }
+        }
+
+    /**
+     * 1.存储元音字符大小写数组
+     * 2.双指针相对逼近遍历。将元音字符交换位置
+     * @param s
+     * @return
+     */
+    public String reverseVowels(String s) {
+            char[] cs = s.toCharArray();
+            int n = s.length();
+            int l = 0, r = n - 1;
+            while (l < r) {
+                if (set.contains(cs[l]) && set.contains(cs[r])) {
+                    swap(cs,l,r);
+                    l++;
+                    r--;
+                } else {
+                    if(!set.contains(cs[l])){
+                        l++;
+                    }
+                    if(!set.contains(cs[r])){
+                        r--;
+                    }
+                }
+            }
+            return String.valueOf(cs);
+        }
+        void swap(char[] cs, int l, int r) {
+            char c = cs[l];
+            cs[l] = cs[r];
+            cs[r] = c;
+        }
+
 
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
@@ -172,5 +223,7 @@ public class Mianshi75 {
         int[] intArray = {1,0,0};
         boolean canPlaceFlowers = m.canPlaceFlowers(intArray, 1);
         System.out.println(canPlaceFlowers);
+
+        System.out.println(m.reverseVowels("aei"));
     }
 }
