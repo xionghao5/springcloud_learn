@@ -1,9 +1,8 @@
 package com.gua.sf.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.*;
 
 public class Mianshi75 {
 
@@ -158,54 +157,107 @@ public class Mianshi75 {
     }
 
     /**
-     *
      * 345. 反转字符串中的元音字母
      * 给你一个字符串 s ，仅反转字符串中的所有元音字母，并返回结果字符串。
-     *
+     * <p>
      * 元音字母包括 'a'、'e'、'i'、'o'、'u'，且可能以大小写两种形式出现不止一次。
      */
 
-        static char[] vowels = new char[]{'a','e','i','o','u'};
-        static Set<Character> set = new HashSet<>();
-        static {
-            for (char c : vowels) {
-                set.add(c);
-                set.add(Character.toUpperCase(c));
-            }
+    static char[] vowels = new char[]{'a', 'e', 'i', 'o', 'u'};
+    static Set<Character> set = new HashSet<>();
+
+    static {
+        for (char c : vowels) {
+            set.add(c);
+            set.add(Character.toUpperCase(c));
         }
+    }
 
     /**
      * 1.存储元音字符大小写数组
      * 2.双指针相对逼近遍历。将元音字符交换位置
+     *
      * @param s
      * @return
      */
     public String reverseVowels(String s) {
-            char[] cs = s.toCharArray();
-            int n = s.length();
-            int l = 0, r = n - 1;
-            while (l < r) {
-                if (set.contains(cs[l]) && set.contains(cs[r])) {
-                    swap(cs,l,r);
+        char[] cs = s.toCharArray();
+        int n = s.length();
+        int l = 0, r = n - 1;
+        while (l < r) {
+            if (set.contains(cs[l]) && set.contains(cs[r])) {
+                swap(cs, l, r);
+                l++;
+                r--;
+            } else {
+                if (!set.contains(cs[l])) {
                     l++;
+                }
+                if (!set.contains(cs[r])) {
                     r--;
-                } else {
-                    if(!set.contains(cs[l])){
-                        l++;
-                    }
-                    if(!set.contains(cs[r])){
-                        r--;
-                    }
                 }
             }
-            return String.valueOf(cs);
         }
-        void swap(char[] cs, int l, int r) {
-            char c = cs[l];
-            cs[l] = cs[r];
-            cs[r] = c;
-        }
+        return String.valueOf(cs);
+    }
 
+    void swap(char[] cs, int l, int r) {
+        char c = cs[l];
+        cs[l] = cs[r];
+        cs[r] = c;
+    }
+
+    /**
+     * 151. 反转字符串中的单词
+     * 给你一个字符串 s ，请你反转字符串中 单词 的顺序。
+     * <p>
+     * 单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。
+     * <p>
+     * 返回 单词 顺序颠倒且 单词 之间用单个空格连接的结果字符串。
+     * <p>
+     * 注意：输入字符串 s中可能会存在前导空格、尾随空格或者单词间的多个空格。返回的结果字符串中，单词间应当仅用单个空格分隔，且不包含任何额外的空格。
+     * <p>
+     * 示例 1：
+     * 输入：s = "the sky is blue"
+     * 输出："blue is sky the"
+     * <p>
+     * 示例 2：
+     * 输入：s = "  hello world  "
+     * 输出："world hello"
+     * 解释：反转后的字符串中不能存在前导空格和尾随空格。
+     * <p>
+     * 示例 3：
+     * 输入：s = "a good  example"
+     * 输出："example good a"
+     * 解释：如果两个单词间有多余的空格，反转后的字符串需要将单词间的空格减少到仅有一个。
+     */
+
+    public String reverseWords(String s) {
+
+        /**
+         * 1.把字符串进行处理,分解成单词数组
+         * 2.遍历数组，交换位置
+         * 3.把数组按照一个空格间隔组成字符串
+         */
+
+        // 如果字符串中包含多个连续空格或者开头结尾有空格，可以使用正则表达式"\s+"作为分隔符来处理
+        String[] sp = s.trim().split("\\s+");
+        for (int i = 0; i < (sp.length / 2); i++) {
+            String temp;
+            temp = sp[i];
+            sp[i] = sp[sp.length - 1 - i];
+            sp[sp.length - 1 - i] = temp;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < sp.length; i++) {
+            if (i < sp.length - 1) {
+                sb.append(sp[i] + " ");
+            } else {
+                sb.append(sp[i]);
+            }
+        }
+        return sb.toString();
+    }
 
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
@@ -220,10 +272,13 @@ public class Mianshi75 {
         System.out.println(gcdOfStrings);
 
 
-        int[] intArray = {1,0,0};
+        int[] intArray = {1, 0, 0};
         boolean canPlaceFlowers = m.canPlaceFlowers(intArray, 1);
         System.out.println(canPlaceFlowers);
-
         System.out.println(m.reverseVowels("aei"));
+
+
+        System.out.println(m.reverseWords("the sky is blue"));
+
     }
 }
