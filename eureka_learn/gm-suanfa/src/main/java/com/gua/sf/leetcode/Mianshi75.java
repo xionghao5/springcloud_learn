@@ -259,6 +259,98 @@ public class Mianshi75 {
         return sb.toString();
     }
 
+    /**
+     * 238. 除自身以外数组的乘积
+     * 给你一个整数数组 nums，返回 数组 answer ，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积 。
+     * <p>
+     * 题目数据 保证 数组 nums之中任意元素的全部前缀元素和后缀的乘积都在  32 位 整数范围内。
+     * <p>
+     * 请不要使用除法，且在 O(n) 时间复杂度内完成此题。
+     */
+
+    public int[] productExceptSelf(int[] nums) {
+        /**
+         * 新数组的元素=老元素的前缀乘积*老元素的后缀乘积
+         * 1.求出老数组的前缀乘积数组
+         * 2.求出老数组的后缀乘积数组
+         * 3.前缀乘积*后缀乘积=新 数组
+         */
+        int length = nums.length;
+        int[] left = new int[length];
+        int[] right = new int[length];
+        int[] answer = new int[length];
+        left[0] = 1;
+        for (int i = 1; i < length; i++) {
+            left[i] = left[i - 1] * nums[i - 1];
+        }
+        right[length - 1] = 1;
+        for (int i = length - 2; i > -1; i--) {
+            right[i] = right[i + 1] * nums[i + 1];
+        }
+        for (int i = 0; i < length; i++) {
+            answer[i] = left[i] * right[i];
+        }
+
+        return answer;
+    }
+
+    /**
+     * 334. 递增的三元子序列
+     * 给你一个整数数组 nums ，判断这个数组中是否存在长度为 3 的递增子序列。
+     * <p>
+     * 如果存在这样的三元组下标 (i, j, k) 且满足 i < j < k ，使得 nums[i] < nums[j] < nums[k] ，返回 true ；否则，返回 false 。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：nums = [1,2,3,4,5]
+     * 输出：true
+     * 解释：任何 i < j < k 的三元组都满足题意
+     * 示例 2：
+     * <p>
+     * 输入：nums = [5,4,3,2,1]
+     * 输出：false
+     * 解释：不存在满足题意的三元组
+     * 示例 3：
+     * <p>
+     * 输入：nums = [2,1,5,0,4,6]
+     * 输出：true
+     * 解释：三元组 (3, 4, 5) 满足题意，因为 nums[3] == 0 < nums[4] == 4 < nums[5] == 6
+     * <p>
+     * <p>
+     * 提示：
+     * <p>
+     * 1 <= nums.length <= 5 * 105
+     * -231 <= nums[i] <= 231 - 1
+     * <p>
+     * <p>
+     * 进阶：你能实现时间复杂度为 O(n) ，空间复杂度为 O(1) 的解决方案吗？
+     */
+
+    public boolean increasingTriplet(int[] nums) {
+        /**
+         * 贪心算法
+         */
+        if (nums.length < 3) {
+            return false;
+        }
+        int first = nums[0];
+        int second = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            int three = nums[i];
+            if (three > second) {
+                return true;
+            } else if (three > first) {
+                second = three;
+            } else {
+                first = three;
+            }
+
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
 
@@ -279,6 +371,13 @@ public class Mianshi75 {
 
 
         System.out.println(m.reverseWords("the sky is blue"));
+
+        int[] ints = m.productExceptSelf(new int[]{1, 2, 3, 4});
+        for (int anInt : ints) {
+            System.out.print(anInt + " ");
+        }
+
+        System.out.println(m.increasingTriplet(new int[]{3,2,1}));
 
     }
 }
