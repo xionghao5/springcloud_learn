@@ -351,6 +351,112 @@ public class Mianshi75 {
         return false;
     }
 
+    /**
+     * 443. 压缩字符串
+     * 给你一个字符数组 chars ，请使用下述算法压缩：
+     * <p>
+     * 从一个空字符串 s 开始。对于 chars 中的每组 连续重复字符 ：
+     * <p>
+     * 如果这一组长度为 1 ，则将字符追加到 s 中。
+     * 否则，需要向 s 追加字符，后跟这一组的长度。
+     * 压缩后得到的字符串 s 不应该直接返回 ，需要转储到字符数组 chars 中。需要注意的是，如果组长度为 10 或 10 以上，则在 chars 数组中会被拆分为多个字符。
+     * <p>
+     * 请在 修改完输入数组后 ，返回该数组的新长度。
+     * <p>
+     * 你必须设计并实现一个只使用常量额外空间的算法来解决此问题。
+     */
+
+    public int compress(char[] chars) {
+        int n = chars.length;
+        int write = 0, left = 0;
+        for (int read = 0; read < n; read++) {
+            if (read == n - 1 || chars[read] != chars[read + 1]) {
+                chars[write++] = chars[read];
+                int num = read - left + 1;
+                if (num > 1) {
+                    int anchor = write;
+                    while (num > 0) {
+                        chars[write++] = (char) (num % 10 + '0');
+                        num /= 10;
+                    }
+                    reverse(chars, anchor, write - 1);
+                }
+                left = read + 1;
+            }
+        }
+        return write;
+    }
+
+    public void reverse(char[] chars, int left, int right) {
+        while (left < right) {
+            char temp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    /**
+     * 283. 移动零
+     * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+     * <p>
+     * 请注意 ，必须在不复制数组的情况下原地对数组进行操作。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: nums = [0,1,0,3,12]
+     * 输出: [1,3,12,0,0]
+     * 示例 2:
+     * <p>
+     * 输入: nums = [0]
+     * 输出: [0]
+     */
+    public void moveZeroes(int[] nums) {
+
+        /**
+         * 1.参考冒泡排序，把0向后移动
+         * 2.如果当前元素是0，并且后一个元素不是0，就前后交换位置
+         * 3.如果当前是0，后面也是0，不动
+         */
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len - i - 1; j++) {
+                if (nums[j] == 0 && nums[j + 1] != 0) {
+                    int temp;
+                    temp = nums[j];
+                    nums[j] = nums[j + 1];
+                    nums[j + 1] = temp;
+                }
+            }
+        }
+
+    }
+
+    public void moveZeroes2(int[] nums) {
+
+        /**
+         * 双指针
+         * 1.一个指针负责遍历
+         * 2.另外一个指针负责记录安排非零元素和数量
+         * 3.把非零元素移动到前面
+         * 4.把非零位置处后面的元素全部赋值为0.
+         */
+
+        int len = nums.length;
+        int j = 0;
+        for (int i = 0; i < len; i++) {
+            if (nums[i] != 0) {
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        for (int i = j; i < len; i++) {
+            nums[i] = 0;
+        }
+
+    }
+
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
 
@@ -376,8 +482,26 @@ public class Mianshi75 {
         for (int anInt : ints) {
             System.out.print(anInt + " ");
         }
+        System.out.println();
 
-        System.out.println(m.increasingTriplet(new int[]{3,2,1}));
+        System.out.println(m.increasingTriplet(new int[]{3, 2, 1}));
 
+        System.out.println(m.compress(new char[]{'a', 'a'}));
+
+        int[] moveZeros = {0, 1, 0, 3, 12};
+        m.moveZeroes(moveZeros);
+
+        for (int a : moveZeros) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+
+        int[] moveZeros2 = {0, 1, 0, 3, 12};
+        m.moveZeroes2(moveZeros2);
+
+        for (int a : moveZeros2) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
     }
 }
