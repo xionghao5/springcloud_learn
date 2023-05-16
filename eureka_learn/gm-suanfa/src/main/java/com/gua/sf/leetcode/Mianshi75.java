@@ -568,11 +568,65 @@ public class Mianshi75 {
             maxArea = maxArea > area ? maxArea : area;
             if (height[i] < height[j]) {
                 i++;
-            }else{
+            } else {
                 j--;
             }
         }
         return maxArea;
+    }
+
+    /**
+     * 1679. K 和数对的最大数目
+     * 给你一个整数数组 nums 和一个整数 k 。
+     * <p>
+     * 每一步操作中，你需要从数组中选出和为 k 的两个整数，并将它们移出数组。
+     * <p>
+     * 返回你可以对数组执行的最大操作数。
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：nums = [1,2,3,4], k = 5
+     * 输出：2
+     * 解释：开始时 nums = [1,2,3,4]：
+     * - 移出 1 和 4 ，之后 nums = [2,3]
+     * - 移出 2 和 3 ，之后 nums = []
+     * 不再有和为 5 的数对，因此最多执行 2 次操作。
+     * 示例 2：
+     * <p>
+     * 输入：nums = [3,1,3,4,3], k = 6
+     * 输出：1
+     * 解释：开始时 nums = [3,1,3,4,3]：
+     * - 移出前两个 3 ，之后nums = [1,4,3]
+     * 不再有和为 6 的数对，因此最多执行 1 次操作。
+     */
+
+    public int maxOperations(int[] nums, int k) {
+
+        /**
+         * 先排序，然后双指针相向移动
+         * 0.先排序
+         * 1.指针分别指向开头和结尾
+         * 2.如果和为k,两个指针都加1，操作数加1
+         * 3.如果和>k,则右边大了，右指针向中间移动；如果和<k，则左边小了，左边指针向中间移动
+         * 4.返回操作数
+         */
+        Arrays.sort(nums);
+        int deal = 0;
+        int i = 0;
+        int j = nums.length - 1;
+        while (i < j) {
+            int sum = nums[i] + nums[j];
+            if (sum == k) {
+                i++;
+                j--;
+                deal++;
+            } else if (sum > k) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return deal;
     }
 
     public static void main(String[] args) {
@@ -626,5 +680,7 @@ public class Mianshi75 {
 
         System.out.println(m.maxArea2(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
         System.out.println(m.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
+
+        System.out.println(m.maxOperations(new int[]{1, 1, 1}, 2));
     }
 }
