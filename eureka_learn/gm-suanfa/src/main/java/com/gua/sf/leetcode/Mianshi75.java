@@ -1,7 +1,5 @@
 package com.gua.sf.leetcode;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.*;
 
 public class Mianshi75 {
@@ -511,6 +509,72 @@ public class Mianshi75 {
 
     }
 
+    /**
+     * 11. 盛最多水的容器
+     * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+     * <p>
+     * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+     * <p>
+     * 返回容器可以储存的最大水量。
+     * <p>
+     * 说明：你不能倾斜容器。
+     * <p>
+     * 输入：[1,8,6,2,5,4,8,3,7]
+     * 输出：49
+     * 解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+     * 示例 2：
+     * <p>
+     * 输入：height = [1,1]
+     * 输出：1
+     */
+
+    public int maxArea2(int[] height) {
+        /**
+         * 双指针遍历
+         * 1.一个指针记录当前位置
+         * 2.另一个指针向后遍历
+         * 3.计算面积（j-i）*h(min)，最后获取最大值
+         *
+         */
+
+        int len = height.length;
+        int maxArea = 0;
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                int area;
+                int heightMin = height[i] < height[j] ? height[i] : height[j];
+                area = (j - i) * heightMin;
+                maxArea = maxArea > area ? maxArea : area;
+            }
+        }
+        return maxArea;
+
+    }
+
+    public int maxArea(int[] height) {
+        /**
+         * 双指针，双向移动
+         * 时间复杂度O(n);空间复杂度O(1)
+         * 1.双指针分别指向开头和结尾，计算面积。
+         * 2.比较开头和结尾的指针处的高度，高度小的向中间移动
+         * 3.最后返回面积最大值
+         */
+        int i = 0;
+        int j = height.length - 1;
+        int maxArea = 0;
+        while (i < j) {
+            int minHeight = height[i] < height[j] ? height[i] : height[j];
+            int area = minHeight * (j - i);
+            maxArea = maxArea > area ? maxArea : area;
+            if (height[i] < height[j]) {
+                i++;
+            }else{
+                j--;
+            }
+        }
+        return maxArea;
+    }
+
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
 
@@ -559,5 +623,8 @@ public class Mianshi75 {
         System.out.println();
 
         System.out.println(m.isSubsequence("abc", "abbbc"));
+
+        System.out.println(m.maxArea2(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
+        System.out.println(m.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
     }
 }
