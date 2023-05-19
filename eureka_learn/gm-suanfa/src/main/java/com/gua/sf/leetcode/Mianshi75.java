@@ -629,6 +629,43 @@ public class Mianshi75 {
         return deal;
     }
 
+    /**
+     * 643. 子数组最大平均数 I
+     * 给你一个由 n 个元素组成的整数数组 nums 和一个整数 k 。
+     * <p>
+     * 请你找出平均数最大且 长度为 k 的连续子数组，并输出该最大平均数。
+     * <p>
+     * 任何误差小于 10-5 的答案都将被视为正确答案。
+     * <p>
+     * 输入：nums = [1,12,-5,-6,50,3], k = 4
+     * 输出：12.75
+     * 解释：最大平均数 (12-5-6+50)/4 = 51/4 = 12.75
+     * 示例 2：
+     * <p>
+     * 输入：nums = [5], k = 1
+     * 输出：5.00000
+     */
+    public double findMaxAverage(int[] nums, int k) {
+        /**
+         * 1.先求最开始的k个数字和sum1
+         * 2.然后下一个和就用sum1-第一个元素+当前元素
+         * 3.用maxAv记录最大值
+         */
+        double maxAv;
+        int sum = 0;
+        int maxSum = 0;
+        for (int i = 0; i < k; i++) {
+            sum += nums[i];
+        }
+        for (int i = 1; i < nums.length; i++) {
+            sum = sum - nums[i - 1] + nums[i + k - 1];
+            maxSum = maxSum > sum ? maxSum : sum;
+        }
+
+        maxAv = (1.0 * maxSum) / k;
+        return maxAv;
+    }
+
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
 
@@ -682,5 +719,7 @@ public class Mianshi75 {
         System.out.println(m.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
 
         System.out.println(m.maxOperations(new int[]{1, 1, 1}, 2));
+
+        System.out.println(m.findMaxAverage(new int[]{5}, 1));
     }
 }
