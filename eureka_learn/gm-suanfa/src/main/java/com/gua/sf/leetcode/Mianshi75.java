@@ -649,15 +649,16 @@ public class Mianshi75 {
         /**
          * 1.先求最开始的k个数字和sum1
          * 2.然后下一个和就用sum1-第一个元素+当前元素
-         * 3.用maxAv记录最大值
+         * 3.用maxSum记录最大值
+         * 4.计算最大平均值并返回
          */
         double maxAv;
         int sum = 0;
-        int maxSum = 0;
         for (int i = 0; i < k; i++) {
             sum += nums[i];
         }
-        for (int i = 1; i < nums.length; i++) {
+        int maxSum = sum;
+        for (int i = 1; i < nums.length - k + 1; i++) {
             sum = sum - nums[i - 1] + nums[i + k - 1];
             maxSum = maxSum > sum ? maxSum : sum;
         }
