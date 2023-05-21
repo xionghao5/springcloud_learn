@@ -1,0 +1,12 @@
+server:
+  port: 9109
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
