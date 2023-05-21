@@ -667,6 +667,59 @@ public class Mianshi75 {
         return maxAv;
     }
 
+    /**
+     * 给你字符串 s 和整数 k 。
+     * <p>
+     * 请返回字符串 s 中长度为 k 的单个子字符串中可能包含的最大元音字母数。
+     * <p>
+     * 英文中的 元音字母 为（a, e, i, o, u）。
+     * <p>
+     *  
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：s = "abciiidef", k = 3
+     * 输出：3
+     * 解释：子字符串 "iii" 包含 3 个元音字母。
+     * 示例 2：
+     * <p>
+     * 输入：s = "aeiou", k = 2
+     * 输出：2
+     * 解释：任意长度为 2 的子字符串都包含 2 个元音字母。
+     */
+    public int maxVowels(String s, int k) {
+
+        /**
+         * 1.采用滑动窗口的算法
+         * 2.先计算最开始的k个元素中的元音字符个数
+         * 3.开始从第二个开始遍历，判断第一个是否是元音，判断最后一个是否是元音，计算元音个数
+         * 4.返回最大元音字符个数
+         */
+        int yuanSum = 0;
+        for (int i = 0; i < k; i++) {
+            if (isYuanYin(s.charAt(i))) {
+                yuanSum++;
+            }
+        }
+        int maxYuanSum = yuanSum;
+        for (int i = 1; i < s.length() - k + 1; i++) {
+
+            if(isYuanYin(s.charAt(i-1))){
+                yuanSum--;
+            }
+            if(isYuanYin(s.charAt(i+k-1))){
+                yuanSum++;
+            }
+            maxYuanSum = maxYuanSum>yuanSum?maxYuanSum:yuanSum;
+
+        }
+        return maxYuanSum;
+    }
+
+    public boolean isYuanYin(char c) {
+        return 'a' == c || 'e' == c || 'i' == c || 'o' == c || 'u' == c;
+    }
+
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
 
@@ -722,5 +775,7 @@ public class Mianshi75 {
         System.out.println(m.maxOperations(new int[]{1, 1, 1}, 2));
 
         System.out.println(m.findMaxAverage(new int[]{5}, 1));
+
+        System.out.println(m.maxVowels("abciiidef",3));
     }
 }
