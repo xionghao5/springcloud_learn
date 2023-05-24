@@ -704,13 +704,13 @@ public class Mianshi75 {
         int maxYuanSum = yuanSum;
         for (int i = 1; i < s.length() - k + 1; i++) {
 
-            if(isYuanYin(s.charAt(i-1))){
+            if (isYuanYin(s.charAt(i - 1))) {
                 yuanSum--;
             }
-            if(isYuanYin(s.charAt(i+k-1))){
+            if (isYuanYin(s.charAt(i + k - 1))) {
                 yuanSum++;
             }
-            maxYuanSum = maxYuanSum>yuanSum?maxYuanSum:yuanSum;
+            maxYuanSum = maxYuanSum > yuanSum ? maxYuanSum : yuanSum;
 
         }
         return maxYuanSum;
@@ -718,6 +718,59 @@ public class Mianshi75 {
 
     public boolean isYuanYin(char c) {
         return 'a' == c || 'e' == c || 'i' == c || 'o' == c || 'u' == c;
+    }
+
+    /**
+     * 1004. 最大连续1的个数 III
+     * 给定一个二进制数组 nums 和一个整数 k，如果可以翻转最多 k 个 0 ，则返回 数组中连续 1 的最大个数 。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：nums = [1,1,1,0,0,0,1,1,1,1,0], K = 2
+     * 输出：6
+     * 解释：[1,1,1,0,0,1,1,1,1,1,1]
+     * 粗体数字从 0 翻转到 1，最长的子数组长度为 6。
+     * 示例 2：
+     * <p>
+     * 输入：nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], K = 3
+     * 输出：10
+     * 解释：[0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
+     * 粗体数字从 0 翻转到 1，最长的子数组长度为 10。
+     */
+
+    public int longestOnes(int[] nums, int k) {
+        /**
+         * 1.滑动窗口
+         * 2.左指针记录左边界，右指针记录右边界，左右指针初始指向0，
+         * 3.右指针主动向右移动，左指针被动向右移动；
+         * 4.用变量zeros记录0的数量，用maxSum记录最大的1的数量。
+         * 5.如果右指针指到0，则zeros++;如果zeros>k,则左指针向右移动，左指针指到0，zeros--
+         * 6.最后返回maxSum
+         */
+
+        int maxSum = 0;
+        int zeros = 0;
+        int left = 0;
+        int right = 0;
+        int sum = 0;
+        while (right < nums.length) {
+            if (nums[right] == 0) {
+                zeros++;
+            }
+            while (zeros > k) {
+                if (nums[left] == 0) {
+                    zeros--;
+                }
+                left++;
+            }
+            sum = right - left + 1;
+            maxSum = maxSum > sum ? maxSum : sum;
+            right++;
+        }
+        return maxSum;
+
     }
 
     public static void main(String[] args) {
@@ -776,6 +829,8 @@ public class Mianshi75 {
 
         System.out.println(m.findMaxAverage(new int[]{5}, 1));
 
-        System.out.println(m.maxVowels("abciiidef",3));
+        System.out.println(m.maxVowels("abciiidef", 3));
+
+        System.out.println(m.longestOnes(new int[]{0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1}, 3));
     }
 }
