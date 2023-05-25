@@ -773,6 +773,98 @@ public class Mianshi75 {
 
     }
 
+    /**
+     * 1493. 删掉一个元素以后全为 1 的最长子数组
+     * 给你一个二进制数组 nums ，你需要从中删掉一个元素。
+     * <p>
+     * 请你在删掉元素的结果数组中，返回最长的且只包含 1 的非空子数组的长度。
+     * <p>
+     * 如果不存在这样的子数组，请返回 0 。
+     * <p>
+     * <p>
+     * <p>
+     * 提示 1：
+     * <p>
+     * 输入：nums = [1,1,0,1]
+     * 输出：3
+     * 解释：删掉位置 2 的数后，[1,1,1] 包含 3 个 1 。
+     * 示例 2：
+     * <p>
+     * 输入：nums = [0,1,1,1,0,1,1,0,1]
+     * 输出：5
+     * 解释：删掉位置 4 的数字后，[0,1,1,1,1,1,0,1] 的最长全 1 子数组为 [1,1,1,1,1] 。
+     * 示例 3：
+     * <p>
+     * 输入：nums = [1,1,1]
+     * 输出：2
+     * 解释：你必须要删除一个元素。
+     */
+    public int longestSubarray(int[] nums) {
+        /**
+         * 1.双指针，滑动窗口
+         * 2.左指针记录左边界，右指针记录右边界，左右指针初始指向0，
+         * 3.右指针主动向右移动，左指针被动向右移动；
+         * 4.用变量zeros记录0的数量，用maxSum记录最大的1的数量。
+         * 5.如果右指针指到0，则zeros++;如果zeros>1,则左指针向右移动，左指针指到0，zeros--
+         * 6.最后返回maxSum，maxSum = (right-left+1)-1
+         */
+        int sum = 0;
+        int maxSum = 0;
+        int zeros = 0;
+        int right = 0;
+        int left = 0;
+        while (right < nums.length) {
+            if (nums[right] == 0) {
+                zeros++;
+            }
+            while (zeros > 1) {
+                if (nums[left] == 0) {
+                    zeros--;
+                }
+                left++;
+            }
+            sum = (right - left + 1) - 1;
+            maxSum = maxSum > sum ? maxSum : sum;
+
+            right++;
+        }
+        return maxSum;
+    }
+
+    /**
+     * 1732. 找到最高海拔
+     * 有一个自行车手打算进行一场公路骑行，这条路线总共由 n + 1 个不同海拔的点组成。自行车手从海拔为 0 的点 0 开始骑行。
+     * <p>
+     * 给你一个长度为 n 的整数数组 gain ，其中 gain[i] 是点 i 和点 i + 1 的 净海拔高度差（0 <= i < n）。请你返回 最高点的海拔 。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：gain = [-5,1,5,0,-7]
+     * 输出：1
+     * 解释：海拔高度依次为 [0,-5,-4,1,1,-6] 。最高海拔为 1 。
+     * 示例 2：
+     * <p>
+     * 输入：gain = [-4,-3,-2,-1,4,3,2]
+     * 输出：0
+     * 解释：海拔高度依次为 [0,-4,-7,-9,-10,-6,-3,-1] 。最高海拔为 0 。
+     */
+    public int largestAltitude(int[] gain) {
+        /**
+         * 1.遍历求最值
+         * 2.第一个海拔a[0]=0，当前海拔a[i]=a[i-1]+gain[i]
+         * 3.返回max
+         */
+        int max = 0;
+        int nowHb = 0;
+        for (int i = 0; i < gain.length; i++) {
+            nowHb = gain[i] + nowHb;
+            max = max > nowHb ? max : nowHb;
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
 
@@ -832,5 +924,9 @@ public class Mianshi75 {
         System.out.println(m.maxVowels("abciiidef", 3));
 
         System.out.println(m.longestOnes(new int[]{0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1}, 3));
+
+        System.out.println(m.longestSubarray(new int[]{1, 1, 1}));
+
+        System.out.println(m.largestAltitude(new int[]{0, -4, -7, -9, -10, -6, -3, -1}));
     }
 }
