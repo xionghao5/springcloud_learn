@@ -1,3 +1,6 @@
+###由于版本不对，导致Spring-kafka-test无法启动
+###所以，这个gm-kafka项目无法启动
+
 server:
   port: 9109
 spring:
