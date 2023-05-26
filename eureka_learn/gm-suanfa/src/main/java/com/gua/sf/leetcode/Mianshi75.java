@@ -865,6 +865,144 @@ public class Mianshi75 {
         return max;
     }
 
+    /**
+     * 给你一个整数数组 nums ，请计算数组的 中心下标 。
+     * <p>
+     * 数组 中心下标 是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。
+     * <p>
+     * 如果中心下标位于数组最左端，那么左侧数之和视为 0 ，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。
+     * <p>
+     * 如果数组有多个中心下标，应该返回 最靠近左边 的那一个。如果数组不存在中心下标，返回 -1 。
+     * <p>
+     *  
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：nums = [1, 7, 3, 6, 5, 6]
+     * 输出：3
+     * 解释：
+     * 中心下标是 3 。
+     * 左侧数之和 sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11 ，
+     * 右侧数之和 sum = nums[4] + nums[5] = 5 + 6 = 11 ，二者相等。
+     * 示例 2：
+     * <p>
+     * 输入：nums = [1, 2, 3]
+     * 输出：-1
+     * 解释：
+     * 数组中不存在满足此条件的中心下标。
+     * 示例 3：
+     * <p>
+     * 输入：nums = [2, 1, -1]
+     * 输出：0
+     * 解释：
+     * 中心下标是 0 。
+     * 左侧数之和 sum = 0 ，（下标 0 左侧不存在元素），
+     * 右侧数之和 sum = nums[1] + nums[2] = 1 + -1 = 0 。
+     */
+
+    public int pivotIndex(int[] nums) {
+
+        /**
+         * 1.计算左边和和右边和，当左边和=右边和时，返回当前下表
+         * 2.当i=0时，leftSum=0,rigth = nums[1]+...+nums[n]
+         * 3.遍历，向右移动
+         */
+        int l = -1;
+        int leftSum = 0;
+        int rightSum = 0;
+        int length = nums.length;
+        for (int i = 1; i < length; i++) {
+            rightSum += nums[i];
+        }
+        if (leftSum == rightSum) {
+            l = 0;
+            return l;
+        }
+        for (int i = 1; i < nums.length; i++) {
+            leftSum += nums[i - 1];
+            rightSum -= nums[i];
+            if (leftSum == rightSum) {
+                l = i;
+                break;
+            }
+        }
+        return l;
+    }
+
+    /**
+     * 2215. 找出两数组的不同
+     * 给你两个下标从 0 开始的整数数组 nums1 和 nums2 ，请你返回一个长度为 2 的列表 answer ，其中：
+     * <p>
+     * answer[0] 是 nums1 中所有 不 存在于 nums2 中的 不同 整数组成的列表。
+     * answer[1] 是 nums2 中所有 不 存在于 nums1 中的 不同 整数组成的列表。
+     * 注意：列表中的整数可以按 任意 顺序返回。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：nums1 = [1,2,3], nums2 = [2,4,6]
+     * 输出：[[1,3],[4,6]]
+     * 解释：
+     * 对于 nums1 ，nums1[1] = 2 出现在 nums2 中下标 0 处，然而 nums1[0] = 1 和 nums1[2] = 3 没有出现在 nums2 中。因此，answer[0] = [1,3]。
+     * 对于 nums2 ，nums2[0] = 2 出现在 nums1 中下标 1 处，然而 nums2[1] = 4 和 nums2[2] = 6 没有出现在 nums2 中。因此，answer[1] = [4,6]。
+     * 示例 2：
+     * <p>
+     * 输入：nums1 = [1,2,3,3], nums2 = [1,1,2,2]
+     * 输出：[[3],[]]
+     * 解释：
+     * 对于 nums1 ，nums1[2] 和 nums1[3] 没有出现在 nums2 中。由于 nums1[2] == nums1[3] ，二者的值只需要在 answer[0] 中出现一次，故 answer[0] = [3]。
+     * nums2 中的每个整数都在 nums1 中出现，因此，answer[1] = [] 。
+     */
+
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        /**
+         * 1.取数组1，2的交集
+         * 2.数组1-交集；数组2-交集
+         * 3.返回结果集合
+         */
+        Set<Integer> set = new HashSet<>();
+        for (int i : nums1) {
+            set.add(i);
+        }
+        Set<Integer> bj = new HashSet<>();
+        for (int i : nums2) {
+            if (set.contains(i)) {
+                bj.add(i);
+            }
+        }
+
+        Set<Integer> set1 = new HashSet<>();
+        for (int i : nums1) {
+            if (!bj.contains(i)) {
+                set1.add(i);
+            }
+        }
+
+        Set<Integer> set2 = new HashSet<>();
+        for (int i : nums2) {
+            if (!bj.contains(i)) {
+                set2.add(i);
+            }
+        }
+
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+
+        for (Integer integer : set1) {
+            list1.add(integer);
+        }
+        for (Integer integer : set2) {
+            list2.add(integer);
+        }
+
+        list.add(list1);
+        list.add(list2);
+
+        return list;
+    }
+
     public static void main(String[] args) {
         Mianshi75 m = new Mianshi75();
 
@@ -928,5 +1066,9 @@ public class Mianshi75 {
         System.out.println(m.longestSubarray(new int[]{1, 1, 1}));
 
         System.out.println(m.largestAltitude(new int[]{0, -4, -7, -9, -10, -6, -3, -1}));
+
+        System.out.println(m.pivotIndex(new int[]{0, -4, -7, -9, -10, -6, -3, -1}));
+
+        System.out.println(m.findDifference(new int[]{1, 2, 3, 3}, new int[]{1, 1, 2, 2}));
     }
 }
