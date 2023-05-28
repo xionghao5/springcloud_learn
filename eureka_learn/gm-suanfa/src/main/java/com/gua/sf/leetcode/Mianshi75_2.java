@@ -107,8 +107,8 @@ public class Mianshi75_2 {
             return false;
         }
 
-        HashMap<Character,Integer> map1 = new HashMap<>();
-        HashMap<Character,Integer> map2 = new HashMap<>();
+        HashMap<Character, Integer> map1 = new HashMap<>();
+        HashMap<Character, Integer> map2 = new HashMap<>();
         HashSet<Character> set1 = new HashSet<>();
         HashSet<Character> set2 = new HashSet<>();
 
@@ -119,7 +119,7 @@ public class Mianshi75_2 {
         Object[] count2 = map2.values().toArray();
         Arrays.sort(count1);
         Arrays.sort(count2);
-        if(!Arrays.equals(count1,count2)){
+        if (!Arrays.equals(count1, count2)) {
             return false;
         }
 
@@ -138,12 +138,74 @@ public class Mianshi75_2 {
             char e = word2.charAt(i);
             set2.add(e);
 
-            if(map2.get(e)==null){
-                map2.put(e,1);
-            }else {
-                map2.put(e,map2.get(e)+1);
+            if (map2.get(e) == null) {
+                map2.put(e, 1);
+            } else {
+                map2.put(e, map2.get(e) + 1);
             }
         }
+    }
+
+    /**
+     * 2352. 相等行列对
+     * 给你一个下标从 0 开始、大小为 n x n 的整数矩阵 grid ，返回满足 Ri 行和 Cj 列相等的行列对 (Ri, Cj) 的数目。
+     * <p>
+     * 如果行和列以相同的顺序包含相同的元素（即相等的数组），则认为二者是相等的。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * <p>
+     * <p>
+     * 输入：grid = [[3,2,1],[1,7,6],[2,7,7]]
+     * 输出：1
+     * 解释：存在一对相等行列对：
+     * - (第 2 行，第 1 列)：[2,7,7]
+     * 示例 2：
+     * <p>
+     * <p>
+     * <p>
+     * 输入：grid = [[3,1,2,2],[1,4,4,5],[2,4,2,2],[2,4,2,2]]
+     * 输出：3
+     * 解释：存在三对相等行列对：
+     * - (第 0 行，第 0 列)：[3,1,2,2]
+     * - (第 2 行, 第 2 列)：[2,4,2,2]
+     * - (第 3 行, 第 2 列)：[2,4,2,2]
+     */
+
+    public int equalPairs(int[][] grid) {
+        /**
+         * 1.遍历二维数组的行，转化为String存储在HashMap中,并且在转化为String时，间隔加上”,"。这样确保每个数字独立
+         * 2.遍历二维数组的列，若HashMap中含有列，则行列相同数count+HashMap的key对应的次数value;
+         * 3.返回count++
+         */
+        int count = 0;
+        Map<String, Integer> map = new HashMap<>();
+        for (int[] ints : grid) {
+            StringBuilder sb = new StringBuilder();
+            for (int i : ints) {
+                sb.append(i).append(",");
+            }
+            String s = sb.toString();
+            if (map.get(s) == null) {
+                map.put(s, 1);
+            } else {
+                map.put(s, map.get(s) + 1);
+            }
+        }
+        int length = grid.length;
+        for (int i = 0; i < length; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < length; j++) {
+                sb.append(grid[j][i]).append(",");
+            }
+            String o = sb.toString();
+            if (map.keySet().contains(o)) {
+                count += map.get(o);
+            }
+        }
+        return count;
     }
 
     public static void main(String[] args) {
@@ -155,5 +217,7 @@ public class Mianshi75_2 {
         boolean b1 = m.closeStrings("abbzzca", "babzzcz");
         Assert.isTrue(!b1, "两个字符串接近");
 
+        int i = m.equalPairs(new int[][]{{3, 1, 2, 2}, {1, 4, 4, 5}, {2, 4, 2, 2}, {2, 4, 2, 2}});
+        Assert.isTrue(i == 3, "算法错误");
     }
 }
