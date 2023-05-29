@@ -208,6 +208,142 @@ public class Mianshi75_2 {
         return count;
     }
 
+    /**
+     * 2390. 从字符串中移除星号
+     * 给你一个包含若干星号 * 的字符串 s 。
+     * <p>
+     * 在一步操作中，你可以：
+     * <p>
+     * 选中 s 中的一个星号。
+     * 移除星号 左侧 最近的那个 非星号 字符，并移除该星号自身。
+     * 返回移除 所有 星号之后的字符串。
+     * <p>
+     * 注意：
+     * <p>
+     * 生成的输入保证总是可以执行题面中描述的操作。
+     * 可以证明结果字符串是唯一的。
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：s = "leet**cod*e"
+     * 输出："lecoe"
+     * 解释：从左到右执行移除操作：
+     * - 距离第 1 个星号最近的字符是 "leet**cod*e" 中的 't' ，s 变为 "lee*cod*e" 。
+     * - 距离第 2 个星号最近的字符是 "lee*cod*e" 中的 'e' ，s 变为 "lecod*e" 。
+     * - 距离第 3 个星号最近的字符是 "lecod*e" 中的 'd' ，s 变为 "lecoe" 。
+     * 不存在其他星号，返回 "lecoe" 。
+     * 示例 2：
+     * <p>
+     * 输入：s = "erase*****"
+     * 输出：""
+     * 解释：整个字符串都会被移除，所以返回空字符串。
+     */
+
+    public String removeStars(String s) {
+        /**
+         * 分析
+         * 1.和四则运算算法类似，用栈这个数据结构可以简化算法
+         * 2.把字符串分成当个字符逐次入栈，遇到*，则弹出一个字符，*就是消除
+         * 3.返回栈中剩余的字符串
+         * 算法
+         * 1.初始化一个栈
+         * 2.遍历字符串入栈，遇到*，弹栈
+         * 3.栈中剩余的元素,遍历存入list,list反转（栈是倒序的），然后遍历组成字符串。返回字符串。
+         */
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '*') {
+                stack.pop();
+            } else {
+                stack.push(c);
+            }
+        }
+        if (stack.isEmpty()) {
+            return "";
+        }
+        List<Character> list = new ArrayList<>();
+        while (!stack.isEmpty()) {
+            list.add(stack.pop());
+        }
+        Collections.reverse(list);
+        StringBuilder sb = new StringBuilder();
+        for (Character character : list) {
+            sb.append(character);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 649. Dota2 参议院
+     * Dota2 的世界里有两个阵营：Radiant（天辉）和 Dire（夜魇）
+     * <p>
+     * Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的 一 项：
+     * <p>
+     * 禁止一名参议员的权利：参议员可以让另一位参议员在这一轮和随后的几轮中丧失 所有的权利 。
+     * 宣布胜利：如果参议员发现有权利投票的参议员都是 同一个阵营的 ，他可以宣布胜利并决定在游戏中的有关变化。
+     * 给你一个字符串 senate 代表每个参议员的阵营。字母 'R' 和 'D'分别代表了 Radiant（天辉）和 Dire（夜魇）。然后，如果有 n 个参议员，给定字符串的大小将是 n。
+     * <p>
+     * 以轮为基础的过程从给定顺序的第一个参议员开始到最后一个参议员结束。这一过程将持续到投票结束。所有失去权利的参议员将在过程中被跳过。
+     * <p>
+     * 假设每一位参议员都足够聪明，会为自己的政党做出最好的策略，你需要预测哪一方最终会宣布胜利并在 Dota2 游戏中决定改变。输出应该是 "Radiant" 或 "Dire" 。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：senate = "RD"
+     * 输出："Radiant"
+     * 解释：
+     * 第 1 轮时，第一个参议员来自 Radiant 阵营，他可以使用第一项权利让第二个参议员失去所有权利。
+     * 这一轮中，第二个参议员将会被跳过，因为他的权利被禁止了。
+     * 第 2 轮时，第一个参议员可以宣布胜利，因为他是唯一一个有投票权的人。
+     * 示例 2：
+     * <p>
+     * 输入：senate = "RDD"
+     * 输出："Dire"
+     * 解释：
+     * 第 1 轮时，第一个来自 Radiant 阵营的参议员可以使用第一项权利禁止第二个参议员的权利。
+     * 这一轮中，第二个来自 Dire 阵营的参议员会将被跳过，因为他的权利被禁止了。
+     * 这一轮中，第三个来自 Dire 阵营的参议员可以使用他的第一项权利禁止第一个参议员的权利。
+     * 因此在第二轮只剩下第三个参议员拥有投票的权利,于是他可以宣布胜利
+     */
+    public String predictPartyVictory(String senate) {
+        /**
+         * 分析
+         * 1.行使禁止权力，淘汰对方参议员
+         * 2.贪心+队列
+         * 3.贪心：优先淘汰对方还没有行使权力的参议员
+         * 4.队列：用队列存储两方参议员的投票顺序。投完票后下一轮的顺序为当前顺序+字符串的长度.
+         * 5.最后判断队列哪个队列不为空，即为胜利方
+         */
+        Queue<Integer> rIndexQueue = new LinkedList<>();
+        Queue<Integer> dIndexQueue = new LinkedList<>();
+        int length = senate.length();
+        for (int i = 0; i < length; i++) {
+            if (senate.charAt(i) == 'R') {
+                rIndexQueue.offer(i);
+            } else {
+                dIndexQueue.offer(i);
+            }
+        }
+        while (!rIndexQueue.isEmpty() && !dIndexQueue.isEmpty()) {
+            Integer rIndex = rIndexQueue.poll();
+            Integer dIndex = dIndexQueue.poll();
+            if (rIndex < dIndex) {
+                rIndexQueue.offer(rIndex + length);
+            } else {
+                dIndexQueue.offer(dIndex + length);
+            }
+        }
+        if (!rIndexQueue.isEmpty()) {
+            return "Radiant";
+        } else {
+            return "Dire";
+        }
+    }
+
     public static void main(String[] args) {
         Mianshi75_2 m = new Mianshi75_2();
         boolean b = m.uniqueOccurrences(new int[]{1, 2, 2, 1, 1, 3});
@@ -219,5 +355,12 @@ public class Mianshi75_2 {
 
         int i = m.equalPairs(new int[][]{{3, 1, 2, 2}, {1, 4, 4, 5}, {2, 4, 2, 2}, {2, 4, 2, 2}});
         Assert.isTrue(i == 3, "算法错误");
+
+        String removeStars = m.removeStars("leet**cod*e");
+
+        Assert.isTrue(removeStars.equals("lecoe"), "算法错误");
+
+        String predictPartyVictory = m.predictPartyVictory("RDD");
+        Assert.isTrue(predictPartyVictory.equals("Dire"), "算法错误");
     }
 }
