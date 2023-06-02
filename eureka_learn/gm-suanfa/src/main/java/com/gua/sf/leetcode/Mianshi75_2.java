@@ -344,6 +344,83 @@ public class Mianshi75_2 {
         }
     }
 
+    /**
+     * 735. 行星碰撞
+     * 给定一个整数数组 asteroids，表示在同一行的行星。
+     * <p>
+     * 对于数组中的每一个元素，其绝对值表示行星的大小，正负表示行星的移动方向（正表示向右移动，负表示向左移动）。每一颗行星以相同的速度移动。
+     * <p>
+     * 找出碰撞后剩下的所有行星。碰撞规则：两个行星相互碰撞，较小的行星会爆炸。如果两颗行星大小相同，则两颗行星都会爆炸。两颗移动方向相同的行星，永远不会发生碰撞。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：asteroids = [5,10,-5]
+     * 输出：[5,10]
+     * 解释：10 和 -5 碰撞后只剩下 10 。 5 和 10 永远不会发生碰撞。
+     * 示例 2：
+     * <p>
+     * 输入：asteroids = [8,-8]
+     * 输出：[]
+     * 解释：8 和 -8 碰撞后，两者都发生爆炸。
+     * 示例 3：
+     * <p>
+     * 输入：asteroids = [10,2,-5]
+     * 输出：[10]
+     * 解释：2 和 -5 发生碰撞后剩下 -5 。10 和 -5 发生碰撞后剩下 10 。
+     */
+
+    public int[] asteroidCollision(int[] asteroids) {
+        /**
+         * 1用栈作为数据结构
+         * 2.每个元素入栈时，先判断栈是否为空，为空，直接入栈。
+         *   不为空，判断正负值，
+         *      同为正负，不会相撞，入栈；
+         *      一正一负，当前元素为正，栈元素为负，不会相撞，入栈
+         *              当前元素为负，栈元素为正，判断大小
+         *                                   如果大小相同，相撞都保证，弹栈比较下一个元素
+         *                                   如果小的是当前元素，当前元素消失，比较下一个元素
+         *                                   如果小的是栈里面的元素，继续弹出下一个进行比较。
+         */
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < asteroids.length; i++) {
+            int asteroid = asteroids[i];
+            while (true) {
+                if (stack.isEmpty()) {
+                    stack.push(asteroid);
+                    break;
+                } else {
+                    Integer before = stack.peek();
+                    if ((before > 0 && asteroid > 0) || (before < 0 && asteroid < 0) || (before < 0 && asteroid > 0)) {
+                        stack.push(asteroid);
+                        break;
+                    } else {
+                        int result = asteroid + before;
+                        if (result == 0) {
+                            stack.pop();
+                            break;
+                        }
+                        if (asteroid < 0 && result < 0) {
+                            stack.pop();
+                            continue;
+                        }
+                        if (asteroid < 0 && result > 0) {
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+        int size = stack.size();
+        int[] result = new int[size];
+        for (int i = 0; i < size; i++) {
+            result[size - 1 - i] = stack.pop();
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         Mianshi75_2 m = new Mianshi75_2();
         boolean b = m.uniqueOccurrences(new int[]{1, 2, 2, 1, 1, 3});
@@ -362,5 +439,9 @@ public class Mianshi75_2 {
 
         String predictPartyVictory = m.predictPartyVictory("RDD");
         Assert.isTrue(predictPartyVictory.equals("Dire"), "算法错误");
+
+
+        int[] asteroidCollision = m.asteroidCollision(new int[]{5, 10, -5});
+        Assert.isTrue(Arrays.equals(new int[]{5, 10}, asteroidCollision), "算法错误");
     }
 }
