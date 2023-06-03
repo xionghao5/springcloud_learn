@@ -421,6 +421,103 @@ public class Mianshi75_2 {
         return result;
     }
 
+
+    /**
+     * 394. 字符串解码
+     * 给定一个经过编码的字符串，返回它解码后的字符串。
+     * <p>
+     * 编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。
+     * <p>
+     * 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。
+     * <p>
+     * 此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：s = "3[a]2[bc]"
+     * 输出："aaabcbc"
+     * 示例 2：
+     * <p>
+     * 输入：s = "3[a2[c]]"
+     * 输出："accaccacc"
+     * 示例 3：
+     * <p>
+     * 输入：s = "2[abc]3[cd]ef"
+     * 输出："abcabccdcdcdef"
+     * 示例 4：
+     * <p>
+     * 输入：s = "abc3[cd]xyz"
+     * 输出："abccdcdcdxyz"
+     */
+
+    public String decodeString(String s) {
+        /**
+         * 1.用栈来存储字符串遍历出来的字符
+         * 2.判断正中括号和反中括号
+         * 3.用一个变量存储K
+         * 4.用一个遍历存储子字符串
+         * 5.把解码出来的子字符串入栈
+         * 6.最后出栈，倒序，返回解码后的字符产
+         */
+        Stack<Character> stack = new Stack<>();
+        char left = '[';
+        char right = ']';
+        List<Character> mathList = Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        for (int i = 0; i < s.length(); i++) {
+            char now = s.charAt(i);
+            if (now != right) {
+                stack.push(now);
+            } else {
+
+                // 获取子字符串
+                StringBuilder reverseSubString = new StringBuilder();
+                while (true) {
+                    Character charSon = stack.pop();
+                    if (charSon == left) {
+                        break;
+                    }
+                    reverseSubString.append(charSon);
+                }
+                // 倒序，按照正序入栈
+                StringBuilder subString = reverseSubString.reverse();
+
+                // 获取k
+                StringBuilder kString = new StringBuilder();
+                while (!stack.isEmpty()) {
+                    Character kSon = stack.peek();
+                    if (!mathList.contains(kSon)) {
+                        break;
+                    }
+                    kString.append(stack.pop());
+                }
+                Integer k = Integer.valueOf(kString.reverse().toString());
+
+                // 获取解码后的子字符产
+                StringBuilder son = new StringBuilder();
+                for (int j = 0; j < k; j++) {
+                    son.append(subString);
+                }
+                String sonStr = son.toString();
+
+                // 把解码后的子字符产入栈
+                for (int j = 0; j < sonStr.length(); j++) {
+                    stack.push(sonStr.charAt(j));
+                }
+
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        while (!stack.isEmpty()) {
+            result.append(stack.pop());
+        }
+
+        return result.reverse().toString();
+
+    }
+
     public static void main(String[] args) {
         Mianshi75_2 m = new Mianshi75_2();
         boolean b = m.uniqueOccurrences(new int[]{1, 2, 2, 1, 1, 3});
@@ -443,5 +540,7 @@ public class Mianshi75_2 {
 
         int[] asteroidCollision = m.asteroidCollision(new int[]{5, 10, -5});
         Assert.isTrue(Arrays.equals(new int[]{5, 10}, asteroidCollision), "算法错误");
+
+        Assert.isTrue("accaccacc".equals(m.decodeString("3[a2[c]]")), "算法错误");
     }
 }
