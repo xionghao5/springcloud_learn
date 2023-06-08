@@ -613,7 +613,7 @@ public class Mianshi75_2 {
      */
 
 
-    public class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 
@@ -631,8 +631,42 @@ public class Mianshi75_2 {
     }
 
     public ListNode deleteMiddle(ListNode head) {
+        /**
+         * 一个链表
+         * 1.先计算链表的长度
+         * 2.然后根据链表长度计算中间节点的位置
+         * 3.删除中间节点(把中间节点的前后节点连接起来，剔除中间节点);如果链表长度为1，则val为0，next为null；如果链表长度为2，则next为null;如果链表长度大于2.
+         * 则next为中间节点的下一个节点
+         */
+        int len = 1;
+        ListNode next = head.next;
+        while (true) {
+            if (next != null) {
+                len++;
+            } else {
+                break;
+            }
+            next = next.next;
+        }
+        int middle = len / 2;
+        if (len == 1) {
+            return null;
+        }
+        if (len == 2) {
+            head.next = null;
+            return head;
+        }
+        ListNode before = head;
+        for (int i = 0; i < middle; i++) {
+            if (i == middle - 1) {
+                ListNode after = before.next.next;
+                before.next = after;
+                return head;
+            }
+            before = before.next;
+        }
 
-        return null;
+        return head;
     }
 
 
@@ -668,5 +702,25 @@ public class Mianshi75_2 {
         }
         Assert.isTrue(Arrays.equals(new int[]{1, 2, 3, 3}, pingResultArray), "算法错误");
 
+
+        int[] nodeArray = {2, 1, 3};
+        ListNode head = new ListNode(nodeArray[0], null);
+        ListNode before = head;
+        for (int j = 0; j < nodeArray.length; j++) {
+            if (j + 1 + 1 > nodeArray.length) {
+                break;
+            } else {
+                ListNode after = new ListNode(nodeArray[j + 1], null);
+                before.next = after;
+            }
+            before = before.next;
+        }
+        ListNode listNode = m.deleteMiddle(head);
+        int[] result = new int[nodeArray.length - 1];
+        for (int j = 0; j < nodeArray.length - 1; j++) {
+            result[j] = listNode.val;
+            listNode = listNode.next;
+        }
+        Assert.isTrue(Arrays.equals(new int[]{2, 3}, result), "算法错误");
     }
 }
