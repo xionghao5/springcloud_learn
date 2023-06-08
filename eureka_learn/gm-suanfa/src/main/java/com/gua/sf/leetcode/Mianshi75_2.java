@@ -27,10 +27,10 @@ public class Mianshi75_2 {
 
     public boolean uniqueOccurrences(int[] arr) {
         /**
-         * 0.使用HashMap记录元素的出现次数
-         * 1.使用hashSet存储元素次数
-         * 2.比较HashSet的length和元素次数的length
-         * 3.相同说明没有重复元素，返回true;不相同返回false
+          0.使用HashMap记录元素的出现次数
+          1.使用hashSet存储元素次数
+          2.比较HashSet的length和元素次数的length
+          3.相同说明没有重复元素，返回true;不相同返回false
          */
         Set<Integer> set = new HashSet<>();
         Map<Integer, Integer> map = new HashMap<>();
@@ -635,7 +635,7 @@ public class Mianshi75_2 {
          * 一个链表
          * 1.先计算链表的长度
          * 2.然后根据链表长度计算中间节点的位置
-         * 3.删除中间节点(把中间节点的前后节点连接起来，剔除中间节点);如果链表长度为1，则val为0，next为null；如果链表长度为2，则next为null;如果链表长度大于2.
+         * 3.删除中间节点(把中间节点的前后节点连接起来，剔除中间节点);如果链表长度为1，则head为null；如果链表长度大于1，则next为null;
          * 则next为中间节点的下一个节点
          */
         int len = 1;
@@ -651,10 +651,6 @@ public class Mianshi75_2 {
         int middle = len / 2;
         if (len == 1) {
             return null;
-        }
-        if (len == 2) {
-            head.next = null;
-            return head;
         }
         ListNode before = head;
         for (int i = 0; i < middle; i++) {
@@ -684,10 +680,10 @@ public class Mianshi75_2 {
 
         String removeStars = m.removeStars("leet**cod*e");
 
-        Assert.isTrue(removeStars.equals("lecoe"), "算法错误");
+        Assert.isTrue("lecoe".equals(removeStars), "算法错误");
 
         String predictPartyVictory = m.predictPartyVictory("RDD");
-        Assert.isTrue(predictPartyVictory.equals("Dire"), "算法错误");
+        Assert.isTrue("Dire".equals(predictPartyVictory), "算法错误");
 
 
         int[] asteroidCollision = m.asteroidCollision(new int[]{5, 10, -5});
