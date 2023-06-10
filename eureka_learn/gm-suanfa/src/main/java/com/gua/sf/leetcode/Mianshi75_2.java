@@ -27,10 +27,10 @@ public class Mianshi75_2 {
 
     public boolean uniqueOccurrences(int[] arr) {
         /**
-          0.使用HashMap记录元素的出现次数
-          1.使用hashSet存储元素次数
-          2.比较HashSet的length和元素次数的length
-          3.相同说明没有重复元素，返回true;不相同返回false
+         0.使用HashMap记录元素的出现次数
+         1.使用hashSet存储元素次数
+         2.比较HashSet的length和元素次数的length
+         3.相同说明没有重复元素，返回true;不相同返回false
          */
         Set<Integer> set = new HashSet<>();
         Map<Integer, Integer> map = new HashMap<>();
@@ -666,6 +666,68 @@ public class Mianshi75_2 {
     }
 
 
+    /**
+     * 328. 奇偶链表
+     * 给定单链表的头节点 head ，将所有索引为奇数的节点和索引为偶数的节点分别组合在一起，然后返回重新排序的列表。
+     * <p>
+     * 第一个节点的索引被认为是 奇数 ， 第二个节点的索引为 偶数 ，以此类推。
+     * <p>
+     * 请注意，偶数组和奇数组内部的相对顺序应该与输入时保持一致。
+     * <p>
+     * 你必须在 O(1) 的额外空间复杂度和 O(n) 的时间复杂度下解决这个问题。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1:
+     * <p>
+     * <p>
+     * <p>
+     * 输入: head = [1,2,3,4,5]
+     * 输出: [1,3,5,2,4]
+     * 示例 2:
+     * <p>
+     * <p>
+     * <p>
+     * 输入: head = [2,1,3,5,6,4,7]
+     * 输出: [2,3,6,7,1,5,4]
+     */
+
+    public ListNode oddEvenList(ListNode head) {
+        /**
+         * 分析
+         * 1遍历链表，用j对象指向第一个元素，用o对象指向第二个元素;用oHead指向第二个元素,用来标记偶数链表的头部
+         * 2.j的下一个元素指向o的下一个元素。o的下一个元素指向l的下一个元素
+         * 3.最后，把奇数链表的尾部指向偶数链表的头部。
+         *
+         * 分析：如何遍历一个链表
+         * 用一个链表对象L指向链表头节点，然后L=L.next。直到L.next == null;
+         *
+         *
+         */
+        if (head == null) {
+            return null;
+        }
+
+        ListNode jNode = head;
+        ListNode oNode = head.next;
+        ListNode oHead = oNode;
+
+        while (true) {
+            if (oNode == null || oNode.next == null) {
+                break;
+            }
+
+            jNode.next = oNode.next;
+            jNode = jNode.next;
+
+            oNode.next = jNode.next;
+            oNode = oNode.next;
+
+        }
+        jNode.next = oHead;
+        return head;
+    }
+
     public static void main(String[] args) {
         Mianshi75_2 m = new Mianshi75_2();
         boolean b = m.uniqueOccurrences(new int[]{1, 2, 2, 1, 1, 3});
@@ -700,6 +762,42 @@ public class Mianshi75_2 {
 
 
         int[] nodeArray = {2, 1, 3};
+        ListNode head = fillListNode(nodeArray);
+        ListNode listNode = m.deleteMiddle(head);
+        int length = nodeArray.length;
+        int[] result = getIntArrayFromListNode(listNode, length - 1);
+        Assert.isTrue(Arrays.equals(new int[]{2, 3}, result), "算法错误");
+
+
+        int[] oddEvenListArray = {1, 2, 3, 4, 5};
+        ListNode oddEvenList = m.oddEvenList(fillListNode(oddEvenListArray));
+        int[] intArrayFromListNode = getIntArrayFromListNode(oddEvenList, oddEvenListArray.length);
+        Assert.isTrue(Arrays.equals(new int[]{1, 3, 5, 2, 4}, intArrayFromListNode), "算法错误");
+    }
+
+    /**
+     * 把链表转化为数组
+     *
+     * @param listNode
+     * @param length
+     * @return
+     */
+    private static int[] getIntArrayFromListNode(ListNode listNode, int length) {
+        int[] result = new int[length];
+        for (int j = 0; j < length; j++) {
+            result[j] = listNode.val;
+            listNode = listNode.next;
+        }
+        return result;
+    }
+
+    /**
+     * 填充链表
+     *
+     * @param nodeArray
+     * @return
+     */
+    private static ListNode fillListNode(int[] nodeArray) {
         ListNode head = new ListNode(nodeArray[0], null);
         ListNode before = head;
         for (int j = 0; j < nodeArray.length; j++) {
@@ -711,12 +809,6 @@ public class Mianshi75_2 {
             }
             before = before.next;
         }
-        ListNode listNode = m.deleteMiddle(head);
-        int[] result = new int[nodeArray.length - 1];
-        for (int j = 0; j < nodeArray.length - 1; j++) {
-            result[j] = listNode.val;
-            listNode = listNode.next;
-        }
-        Assert.isTrue(Arrays.equals(new int[]{2, 3}, result), "算法错误");
+        return head;
     }
 }
