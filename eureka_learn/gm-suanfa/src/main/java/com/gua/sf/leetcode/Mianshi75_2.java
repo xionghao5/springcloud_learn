@@ -728,6 +728,59 @@ public class Mianshi75_2 {
         return head;
     }
 
+
+    /**
+     * 206. 反转链表
+     * 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * <p>
+     * 输入：head = [1,2,3,4,5]
+     * 输出：[5,4,3,2,1]
+     * 示例 2：
+     * <p>
+     * <p>
+     * 输入：head = [1,2]
+     * 输出：[2,1]
+     * 示例 3：
+     * <p>
+     * 输入：head = []
+     * 输出：[]
+     */
+
+    public ListNode reverseList(ListNode head) {
+        /**
+         * 分析：单链表，如何反转呢
+         * 1.左，head,右。三个元素做转换。右是head.next,head指向左，左成为head,head成为右。
+         * 2.最后返回head
+         */
+
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            return head;
+        }
+
+        ListNode lNode = head;
+        head = head.next;
+        lNode.next = null;
+        ListNode temp = null;
+        while (true) {
+            temp = head.next;
+            head.next = lNode;
+
+            if (temp == null) {
+                break;
+            }
+            lNode = head;
+            head = temp;
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
         Mianshi75_2 m = new Mianshi75_2();
         boolean b = m.uniqueOccurrences(new int[]{1, 2, 2, 1, 1, 3});
@@ -773,6 +826,11 @@ public class Mianshi75_2 {
         ListNode oddEvenList = m.oddEvenList(fillListNode(oddEvenListArray));
         int[] intArrayFromListNode = getIntArrayFromListNode(oddEvenList, oddEvenListArray.length);
         Assert.isTrue(Arrays.equals(new int[]{1, 3, 5, 2, 4}, intArrayFromListNode), "算法错误");
+
+        int[] reverseListArray = {1, 2};
+        ListNode reverseListNode = m.reverseList(fillListNode(reverseListArray));
+        int[] resultReverseList = getIntArrayFromListNode(reverseListNode, reverseListArray.length);
+        Assert.isTrue(Arrays.equals(new int[]{2, 1}, resultReverseList), "算法错误");
     }
 
     /**
