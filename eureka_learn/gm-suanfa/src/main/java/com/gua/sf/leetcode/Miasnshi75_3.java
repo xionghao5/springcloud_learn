@@ -2,7 +2,9 @@ package com.gua.sf.leetcode;
 
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -124,6 +126,62 @@ public class Miasnshi75_3 {
         return maxDepth + 1;
     }
 
+
+    /**
+     * 请考虑一棵二叉树上所有的叶子，这些叶子的值按从左到右的顺序排列形成一个 叶值序列 。
+     * <p>
+     * <p>
+     * <p>
+     * 举个例子，如上图所示，给定一棵叶值序列为 (6, 7, 4, 9, 8) 的树。
+     * <p>
+     * 如果有两棵二叉树的叶值序列是相同，那么我们就认为它们是 叶相似 的。
+     * <p>
+     * 如果给定的两个根结点分别为 root1 和 root2 的树是叶相似的，则返回 true；否则返回 false 。
+     * <p>
+     *  
+     * <p>
+     * 示例 1：
+     * <p>
+     * <p>
+     * <p>
+     * 输入：root1 = [3,5,1,6,2,9,8,null,null,7,4], root2 = [3,5,1,6,7,4,2,null,null,null,null,null,null,9,8]
+     * 输出：true
+     * 示例 2：
+     * <p>
+     * <p>
+     * <p>
+     * 输入：root1 = [1,2,3], root2 = [1,3,2]
+     * 输出：false
+     *
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        /**
+         * 1.采用递归
+         * 2.用list顺序存储叶子节点的值
+         * 3.然后比较2个list是否相同
+         */
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+
+        getLeafListFromTree(list1, root1);
+        getLeafListFromTree(list2, root2);
+        return list1.equals(list2);
+    }
+
+    public void getLeafListFromTree(List<Integer> list, TreeNode treeNode) {
+        if (treeNode == null) {
+            return;
+        }
+        if (treeNode.left == null && treeNode.right == null) {
+            list.add(treeNode.val);
+        }
+        getLeafListFromTree(list, treeNode.left);
+        getLeafListFromTree(list, treeNode.right);
+    }
+
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
@@ -134,7 +192,13 @@ public class Miasnshi75_3 {
         m.printBinaryTreeToArray(diguiTreeNode);
         int maxDepth = m.maxDepth(treeNode);
 
-        Assert.isTrue(3 == maxDepth, "每个数的出现次数不是独一无二的");
+        Assert.isTrue(3 == maxDepth, "算法错误");
 
+
+        Integer[] leafSimilarArray1 = {3, 5, 1, 6, 2, 9, 8, null, null, 7, 4};
+        Integer[] leafSimilarArray2 = {3, 5, 1, 6, 7, 4, 2, null, null, null, null, null, null, 9, 8};
+        TreeNode leafSimilarTreeNode1 = m.arrayToTreeNode(leafSimilarArray1);
+        TreeNode leafSimilarTreeNode2 = m.arrayToTreeNode(leafSimilarArray2);
+        Assert.isTrue(m.leafSimilar(leafSimilarTreeNode1, leafSimilarTreeNode2), "算法错误");
     }
 }
