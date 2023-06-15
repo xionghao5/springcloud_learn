@@ -33,24 +33,22 @@ public class Miasnshi75_3 {
         }
     }
 
-    public TreeNode constructBinaryTree(Integer[] array) {
+
+    public TreeNode arrayToBinaryTree(Integer[] array) {
         if (array == null || array.length == 0) {
             return null;
         }
-
-        return constructBinaryTree(array, 0);
+        return arrayToTreeNode(array, 0);
     }
 
-    private TreeNode constructBinaryTree(Integer[] array, int index) {
+    public TreeNode arrayToTreeNode(Integer[] array, int index) {
         if (index >= array.length || array[index] == null) {
             return null;
         }
-
-        TreeNode root = new TreeNode(array[index]);
-        root.left = constructBinaryTree(array, 2 * index + 1);
-        root.right = constructBinaryTree(array, 2 * index + 2);
-
-        return root;
+        TreeNode treeNode = new TreeNode(array[index]);
+        treeNode.left = arrayToTreeNode(array, 2 * index + 1);
+        treeNode.right = arrayToTreeNode(array, 2 * index + 2);
+        return treeNode;
     }
 
     /**
@@ -87,14 +85,13 @@ public class Miasnshi75_3 {
         return root;
     }
 
-    public void printBinaryTree(TreeNode root) {
-        if (root == null) {
+    public void printBinaryTreeToArray(TreeNode treeNode) {
+        if (treeNode == null) {
             return;
         }
-
-        System.out.print(root.val + " ");
-        printBinaryTree(root.left);
-        printBinaryTree(root.right);
+        System.out.print(treeNode.val + " ");
+        printBinaryTreeToArray(treeNode.left);
+        printBinaryTreeToArray(treeNode.right);
     }
 
 
@@ -132,9 +129,9 @@ public class Miasnshi75_3 {
         Integer[] array = {3, 9, 20, null, null, 15, 7};
         Miasnshi75_3 m = new Miasnshi75_3();
         TreeNode treeNode = m.arrayToTreeNode(array);
-        TreeNode diguiTreeNode = m.constructBinaryTree(array);
-        m.printBinaryTree(treeNode);
-        m.printBinaryTree(diguiTreeNode);
+        TreeNode diguiTreeNode = m.arrayToTreeNode(array);
+        m.printBinaryTreeToArray(treeNode);
+        m.printBinaryTreeToArray(diguiTreeNode);
         int maxDepth = m.maxDepth(treeNode);
 
         Assert.isTrue(3 == maxDepth, "每个数的出现次数不是独一无二的");
