@@ -243,6 +243,63 @@ public class Miasnshi75_3 {
         return sum;
     }
 
+    /**
+     * 给定一个二叉树的根节点 root ，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的 路径 的数目。
+     * <p>
+     * 路径 不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
+     * <p>
+     *  
+     * <p>
+     * 示例 1：
+     * <p>
+     * <p>
+     * <p>
+     * 输入：root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8
+     * 输出：3
+     * 解释：和等于 8 的路径有 3 条，如图所示。
+     * 示例 2：
+     * <p>
+     * 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+     * 输出：3
+     */
+    public int pathSum(TreeNode root, int targetSum) {
+
+        /**
+         * 分析
+         * 1.采用递归
+         * 2.第一个递归方法把树分解成一个个以当前节点为根的树，并返回当前树的路径数目
+         * 3.第二个递归方法，求当前节点为根的树的路径树木
+         */
+
+
+        return asRootTreeSum(root, Long.valueOf(targetSum));
+    }
+
+    public int asRootTreeSum(TreeNode treeNode, Long targetSum) {
+        if (treeNode == null) {
+            return 0;
+        }
+        int sum;
+        sum = asRootTreeGetPathSum(treeNode, targetSum, 0L);
+        sum += asRootTreeSum(treeNode.left, targetSum);
+        sum += asRootTreeSum(treeNode.right, targetSum);
+        return sum;
+    }
+
+    public int asRootTreeGetPathSum(TreeNode treeNode, Long targetSum, Long beforeSum) {
+        if (treeNode == null) {
+            return 0;
+        }
+        int nowRootTreeSum = 0;
+        Long now = beforeSum + treeNode.val;
+        if (now.equals(targetSum)) {
+            nowRootTreeSum++;
+        }
+        nowRootTreeSum += asRootTreeGetPathSum(treeNode.left, targetSum, now);
+        nowRootTreeSum += asRootTreeGetPathSum(treeNode.right, targetSum, now);
+        return nowRootTreeSum;
+    }
+
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
@@ -267,5 +324,15 @@ public class Miasnshi75_3 {
         TreeNode goodNodesTreeNode = m.arrayToTreeNode(goodNodesArray);
         int goodNodesResult = m.goodNodes(goodNodesTreeNode);
         Assert.isTrue(4 == goodNodesResult, "算法错误");
+
+
+//        [1000000000,1000000000,null,294967296,null,1000000000,null,1000000000,null,1000000000]
+//                                                   2147483647
+//        0
+        Integer[] pathSumArray = {8, 8, 8};
+        int pathSumTarget = 8;
+        TreeNode pathSumTreeNode = m.arrayToTreeNode(pathSumArray);
+        int pathSumResult = m.pathSum(pathSumTreeNode, pathSumTarget);
+        Assert.isTrue(3 == pathSumResult, "算法错误");
     }
 }
