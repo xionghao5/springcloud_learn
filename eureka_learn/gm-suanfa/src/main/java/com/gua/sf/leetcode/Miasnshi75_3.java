@@ -300,6 +300,138 @@ public class Miasnshi75_3 {
         return nowRootTreeSum;
     }
 
+
+    /**
+     * 1372. 二叉树中的最长交错路径
+     * 给你一棵以 root 为根的二叉树，二叉树中的交错路径定义如下：
+     * <p>
+     * 选择二叉树中 任意 节点和一个方向（左或者右）。
+     * 如果前进方向为右，那么移动到当前节点的的右子节点，否则移动到它的左子节点。
+     * 改变前进方向：左变右或者右变左。
+     * 重复第二步和第三步，直到你在树中无法继续移动。
+     * 交错路径的长度定义为：访问过的节点数目 - 1（单个节点的路径长度为 0 ）。
+     * <p>
+     * 请你返回给定树中最长 交错路径 的长度。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1：
+     * <p>
+     * <p>
+     * <p>
+     * 输入：root = [1,null,1,1,1,null,null,1,1,null,1,null,null,null,1,null,1]
+     * 输出：3
+     * 解释：蓝色节点为树中最长交错路径（右 -> 左 -> 右）。
+     * 示例 2：
+     * <p>
+     * <p>
+     * <p>
+     * 输入：root = [1,1,1,null,1,null,null,1,1,null,1]
+     * 输出：4
+     * 解释：蓝色节点为树中最长交错路径（左 -> 右 -> 左 -> 右）。
+     * 示例 3：
+     * <p>
+     * 输入：root = [1]
+     * 输出：0
+     */
+
+    public int maxPath = 0;
+
+    public int longestZigZag(TreeNode root) {
+        /**
+         *分析：
+         * 1.递归
+         * 2.首先把树分解成一个个以当前节点为根的树
+         * 3.然后判断每棵树的最大交错长度。
+         * 4.如何计算每棵树的最大交错长度。
+         * 5.设置一个全局变量maxPath，用来记录最大交错路径
+         * 6.设置一个标记flag，用来标记向左还是向右。如果当前节点不为空，则maxPath++;
+         *
+         *
+         * 但是，双递归，如果树的节点太多，就会比较慢
+         */
+        getSonTreeNode(root);
+        return maxPath;
+    }
+
+    public void getSonTreeNode(TreeNode treeNode) {
+        if (treeNode == null) {
+            return;
+        }
+        beginCountRootTreeNodePath(treeNode);
+        getSonTreeNode(treeNode.left);
+        getSonTreeNode(treeNode.right);
+    }
+
+    public void beginCountRootTreeNodePath(TreeNode treeNode) {
+        if (treeNode == null) {
+            return;
+        }
+        countSonTreeNodePath(treeNode.left, true, 0);
+        countSonTreeNodePath(treeNode.right, false, 0);
+    }
+
+
+    public void countSonTreeNodePath(TreeNode treeNode, boolean flag, int pathCount) {
+        if (treeNode == null) {
+            return;
+        } else {
+            pathCount++;
+            maxPath = maxPath > pathCount ? maxPath : pathCount;
+        }
+        if (flag) {
+            countSonTreeNodePath(treeNode.right, false, pathCount);
+        } else {
+            countSonTreeNodePath(treeNode.left, true, pathCount);
+        }
+
+    }
+
+
+    public int longestZigZag2(TreeNode root) {
+        /**
+         *分析：
+         * 1.递归
+         * 4.如何计算每棵树的最大交错长度。
+         * 5.设置一个全局变量maxPath，用来记录最大交错路径
+         * 6.设置一个标记flag，用来标记向左还是向右。
+         * 5.在当前节点，就判断子节点是否为空，在当前节点就计算路径，在子节点计算最大交错长度；如何子节点不能交错，要重新计算长度
+         *
+         *
+         * 但是，双递归，如果树的节点太多，就会比较慢.所以只能采用单递归
+         */
+
+        if (root == null) {
+            return maxPath;
+        }
+        countSonTreePath(root, true, 0);
+        countSonTreePath(root, false, 0);
+        return maxPath;
+    }
+
+    public void countSonTreePath(TreeNode treeNode, boolean flag, int len) {
+        maxPath = maxPath > len ? maxPath : len;
+
+        TreeNode left = treeNode.left;
+        TreeNode right = treeNode.right;
+        if (flag) {
+            if (right != null) {
+                countSonTreePath(right, false, len + 1);
+            }
+            if (left != null) {
+                countSonTreePath(left, true, 1);
+            }
+        } else {
+            if (left != null) {
+                countSonTreePath(left, true, len + 1);
+            }
+            if (right != null) {
+                countSonTreePath(right, false, 1);
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
@@ -325,14 +457,18 @@ public class Miasnshi75_3 {
         int goodNodesResult = m.goodNodes(goodNodesTreeNode);
         Assert.isTrue(4 == goodNodesResult, "算法错误");
 
-
-//        [1000000000,1000000000,null,294967296,null,1000000000,null,1000000000,null,1000000000]
-//                                                   2147483647
-//        0
         Integer[] pathSumArray = {8, 8, 8};
         int pathSumTarget = 8;
         TreeNode pathSumTreeNode = m.arrayToTreeNode(pathSumArray);
         int pathSumResult = m.pathSum(pathSumTreeNode, pathSumTarget);
         Assert.isTrue(3 == pathSumResult, "算法错误");
+
+        Integer[] longestZigZagArray = {1, 1, 1, null, 1, null, null, 1, 1, null, 1};
+        TreeNode longestZigZagTreeNode = m.arrayToTreeNode(longestZigZagArray);
+        int longestZigZagResult = m.longestZigZag(longestZigZagTreeNode);
+        Assert.isTrue(4 == longestZigZagResult, "算法错误");
+
+
+        Assert.isTrue(4 == m.longestZigZag2(m.arrayToBinaryTree(longestZigZagArray)), "算法错误");
     }
 }
