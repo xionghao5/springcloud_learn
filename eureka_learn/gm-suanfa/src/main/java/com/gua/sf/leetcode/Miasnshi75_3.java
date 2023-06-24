@@ -562,6 +562,65 @@ public class Miasnshi75_3 {
         fillRightNodeValToList(root.left, depth, res);
     }
 
+    /**
+     * 1161. 最大层内元素和
+     * 给你一个二叉树的根节点 root。设根节点位于二叉树的第 1 层，而根节点的子节点位于第 2 层，依此类推。
+     * <p>
+     * 请返回层内元素之和 最大 的那几层（可能只有一层）的层号，并返回其中 最小 的那个。
+     * <p>
+     * 示例 1：
+     * 输入：root = [1,7,0,7,-8,null,null]
+     * 输出：2
+     * 解释：
+     * 第 1 层各元素之和为 1，
+     * 第 2 层各元素之和为 7 + 0 = 7，
+     * 第 3 层各元素之和为 7 + -8 = -1，
+     * 所以我们返回第 2 层的层号，它的层内元素之和最大。
+     * <p>
+     * 示例 2：
+     * 输入：root = [989,null,10250,98693,-89388,null,null,null,-32127]
+     * 输出：2
+     * <p>
+     * 提示：
+     * <p>
+     * 树中的节点数在 [1, 104]范围内
+     * -105 <= Node.val <= 105
+     */
+
+    public List<Integer> levelSumList = new ArrayList<>();
+
+    public int maxLevelSum(TreeNode root) {
+        /**
+         方法一：深度优先搜索
+         我们可以采用深度优先搜索来遍历这棵二叉树，递归的同时记录当前的层号。
+
+         相比哈希表，这里我们采用效率更高的动态数组来维护每一层的元素之和，如果当前层号达到了数组的长度，则将节点元素添加到数组末尾，否则更新对应层号的元素之和。
+
+         然后遍历数组，找到元素之和最大，且层号最小的元素。
+         */
+        int maxValSumLevel = 0;
+        sumNowLevelTreeNodeVal(root, 0);
+        for (int i = 0; i < levelSumList.size(); i++) {
+            if (levelSumList.get(i) > levelSumList.get(maxValSumLevel)) {
+                maxValSumLevel = i;
+            }
+        }
+        return maxValSumLevel + 1;
+    }
+
+    public void sumNowLevelTreeNodeVal(TreeNode treeNode, int level) {
+        if (treeNode == null) {
+            return;
+        }
+        if (level == levelSumList.size()) {
+            levelSumList.add(treeNode.val);
+        } else {
+            levelSumList.set(level, levelSumList.get(level) + treeNode.val);
+        }
+        sumNowLevelTreeNodeVal(treeNode.left, level + 1);
+        sumNowLevelTreeNodeVal(treeNode.right, level + 1);
+    }
+
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
@@ -618,6 +677,12 @@ public class Miasnshi75_3 {
         rightSideViewAssert.add(3);
         rightSideViewAssert.add(4);
         Assert.isTrue(rightSideViewAssert.equals(rightSideViewResult), "算法错误");
+
+        Integer[] maxLevelSumArray = {1, 7, 0, 7, -8, null, null};
+        TreeNode maxLevelSumArrayTreeNode = m.arrayToBinaryTree(maxLevelSumArray);
+        int maxLevelSumResult = m.maxLevelSum(maxLevelSumArrayTreeNode);
+        Assert.isTrue(2 == maxLevelSumResult, "算法错误");
+
 
     }
 }
