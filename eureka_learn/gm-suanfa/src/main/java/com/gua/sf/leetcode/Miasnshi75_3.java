@@ -497,6 +497,71 @@ public class Miasnshi75_3 {
         return null;
     }
 
+    /**
+     * 199. 二叉树的右视图
+     * 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1:
+     * <p>
+     * <p>
+     * <p>
+     * 输入: [1,2,3,null,5,null,4]
+     * 输出: [1,3,4]
+     * 示例 2:
+     * <p>
+     * 输入: [1,null,3]
+     * 输出: [1,3]
+     * 示例 3:
+     * <p>
+     * 输入: []
+     * 输出: []
+     * <p>
+     * <p>
+     * 提示:
+     * <p>
+     * 二叉树的节点个数的范围是 [0,100]
+     * -100 <= Node.val <= 100
+     */
+
+//    public List<Integer> rightSideView(TreeNode root) {
+//        /**
+//         * 分析：
+//         * 1.递归
+//         * 2.遍历树的右边节点，并存入list
+//         */
+//        List<Integer> list = new ArrayList<>();
+//        fillRightNodeValToList(root, list);
+//        return list;
+//    }
+//
+//    public void fillRightNodeValToList(TreeNode treeNode, List<Integer> list) {
+//        if (treeNode == null) {
+//            return;
+//        }
+//        list.add(treeNode.val);
+//        fillRightNodeValToList(treeNode.right, list);
+//    }
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        fillRightNodeValToList(root, 0, res); // 从根节点开始访问，根节点深度是0
+        return res;
+    }
+
+    private void fillRightNodeValToList(TreeNode root, int depth, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        // 先访问 当前节点，再递归地访问 右子树 和 左子树。
+        if (depth == res.size()) {   // 如果当前节点所在深度还没有出现在res里，说明在该深度下当前节点是第一个被访问的节点，因此将当前节点加入res中。
+            res.add(root.val);
+        }
+        depth++;
+        fillRightNodeValToList(root.right, depth, res);
+        fillRightNodeValToList(root.left, depth, res);
+    }
+
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
@@ -543,5 +608,16 @@ public class Miasnshi75_3 {
         TreeNode q = m.constractTreeNode(4);
         TreeNode lowestCommonAncestorResult = m.lowestCommonAncestor(lowestCommonAncestorTreeNode, p, q);
         Assert.isTrue(p.val == lowestCommonAncestorResult.val, "算法错误");
+
+
+        Integer[] rightSideViewArray = {1, 2, 3, null, 5, null, 4};
+        TreeNode rightSideViewArrayTreeNode = m.arrayToBinaryTree(rightSideViewArray);
+        List<Integer> rightSideViewResult = m.rightSideView(rightSideViewArrayTreeNode);
+        List<Integer> rightSideViewAssert = new ArrayList<>();
+        rightSideViewAssert.add(1);
+        rightSideViewAssert.add(3);
+        rightSideViewAssert.add(4);
+        Assert.isTrue(rightSideViewAssert.equals(rightSideViewResult), "算法错误");
+
     }
 }
