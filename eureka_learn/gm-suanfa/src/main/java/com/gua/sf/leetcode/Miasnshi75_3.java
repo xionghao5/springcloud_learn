@@ -36,6 +36,56 @@ public class Miasnshi75_3 {
         return new TreeNode(val);
     }
 
+    /**
+     * 计算二叉树节点数量
+     *
+     * @param treeNode
+     * @return
+     */
+    int countBinaryTreeNodeNodes = 0;
+
+    public int countBinaryTreeNodeNodes(TreeNode root) {
+        countBinaryTreeNodeNodes++;
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        if (left != null || right != null) {
+            countBinaryTreeNodeNodes(left);
+            countBinaryTreeNodeNodes(right);
+        }
+        return countBinaryTreeNodeNodes;
+    }
+
+    /**
+     * 二叉树转换成list
+     *
+     * @param treeNode
+     * @return
+     */
+    public Integer[] binaryTreeToArray(TreeNode treeNode) {
+        if (treeNode == null) {
+            return new Integer[]{};
+        }
+        int treeNodeSize = countBinaryTreeNodeNodes(treeNode);
+        Integer[] array = new Integer[treeNodeSize];
+        binaryTreeToArray(array, treeNode, 0);
+        return array;
+    }
+
+    public void binaryTreeToArray(Integer[] array, TreeNode treeNode, int index) {
+        if (treeNode != null) {
+            array[index] = treeNode.val;
+        } else {
+            array[index] = null;
+        }
+        TreeNode left = treeNode.left;
+        TreeNode right = treeNode.right;
+        if (left != null || right != null) {
+            binaryTreeToArray(array, left, 2 * index + 1);
+            binaryTreeToArray(array, right, 2 * index + 2);
+        }
+    }
+
+
     public TreeNode arrayToBinaryTree(Integer[] array) {
         if (array == null || array.length == 0) {
             return null;
@@ -621,6 +671,51 @@ public class Miasnshi75_3 {
         sumNowLevelTreeNodeVal(treeNode.right, level + 1);
     }
 
+    /**
+     * 700. 二叉搜索树中的搜索
+     * 给定二叉搜索树（BST）的根节点 root 和一个整数值 val。
+     * <p>
+     * 你需要在 BST 中找到节点值等于 val 的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 null 。
+     * <p>
+     * 示例 1:
+     * 输入：root = [4,2,7,1,3], val = 2
+     * 输出：[2,1,3]
+     * <p>
+     * 示例 2:
+     * 输入：root = [4,2,7,1,3], val = 5
+     * 输出：[]
+     * 提示：
+     * <p>
+     * 数中节点数在 [1, 5000] 范围内
+     * 1 <= Node.val <= 107
+     * root 是二叉搜索树
+     * 1 <= val <= 107
+     */
+
+    public TreeNode searchBSTTreeNode = null;
+
+    public TreeNode searchBST(TreeNode root, int val) {
+
+        /**
+         * 分析
+         * 1.递归
+         * 2.如果节点值等于val,返回当前节点
+         */
+        searchEqualValTreeNode(root, val);
+        return searchBSTTreeNode;
+    }
+
+    public void searchEqualValTreeNode(TreeNode treeNode, int val) {
+        if (treeNode == null) {
+            return;
+        }
+        if (val == treeNode.val) {
+            searchBSTTreeNode = treeNode;
+        }
+        searchEqualValTreeNode(treeNode.left, val);
+        searchEqualValTreeNode(treeNode.right, val);
+    }
+
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
@@ -684,5 +779,11 @@ public class Miasnshi75_3 {
         Assert.isTrue(2 == maxLevelSumResult, "算法错误");
 
 
+        Integer[] searchBSTArray = {4, 2, 7, 1, 3};
+        TreeNode searchBSTArrayTreeNode = m.arrayToBinaryTree(searchBSTArray);
+        TreeNode searchBSTResult = m.searchBST(searchBSTArrayTreeNode, 2);
+        Integer[] searchBSTResultArray = m.binaryTreeToArray(searchBSTResult);
+        Integer[] searchBSTAssertResultArray = {2,1,3};
+        Assert.isTrue(Arrays.equals(searchBSTResultArray,searchBSTAssertResultArray), "算法错误");
     }
 }
