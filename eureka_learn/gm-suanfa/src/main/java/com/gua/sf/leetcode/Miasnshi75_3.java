@@ -716,6 +716,59 @@ public class Miasnshi75_3 {
         searchEqualValTreeNode(treeNode.right, val);
     }
 
+    /**
+     * 450. 删除二叉搜索树中的节点
+     * 给定一个二叉搜索树的根节点 root 和一个值 key，删除二叉搜索树中的 key 对应的节点，并保证二叉搜索树的性质不变。返回二叉搜索树（有可能被更新）的根节点的引用。
+     * 一般来说，删除节点可分为两个步骤：
+     * 首先找到需要删除的节点；
+     * 如果找到了，删除它。
+     * <p>
+     * 示例 1:
+     * 输入：root = [5,3,6,2,4,null,7], key = 3
+     * 输出：[5,4,6,2,null,null,7]
+     * 解释：给定需要删除的节点值是 3，所以我们首先找到 3 这个节点，然后删除它。
+     * 一个正确的答案是 [5,4,6,2,null,null,7], 如下图所示。
+     * 另一个正确答案是 [5,2,6,null,4,null,7]。
+     * <p>
+     * 示例 2:
+     * 输入: root = [5,3,6,2,4,null,7], key = 0
+     * 输出: [5,3,6,2,4,null,7]
+     * 解释: 二叉树不包含值为 0 的节点
+     * <p>
+     * 示例 3:
+     * 输入: root = [], key = 0
+     * 输出: []
+     * <p>
+     * 提示:
+     * <p>
+     * 节点数的范围 [0, 104].
+     * -105 <= Node.val <= 105
+     * 节点值唯一
+     * root 是合法的二叉搜索树
+     * -105 <= key <= 105
+     * <p>
+     * 进阶： 要求算法时间复杂度为 O(h)，h 为树的高度。
+     */
+    public TreeNode deleteBinarySearchTreeResult;
+
+    public TreeNode deleteNode(TreeNode root, int key) {
+        /**
+         * 分析
+         * 1.递归，深度优先
+         * 2.用全局变量返回结果
+         * 3.判断，如果当前节点是要删除的节点。如果当前节点有左子节点，当前节点父节点指向当前节点；然后判断当前节点是否有右节点，如果右，根据右节点的大小，来决定右节点的位置
+         * 4.分析多种情况，
+         * （1）要删除的节点是root节点
+         * （2）要删除的节点是叶子节点
+         * （3）要删除的节点只有左节点
+         * （4）要删除的节点只有右节点
+         * （5）要删除的节点既有左节点，也有右节点
+         *  (6)要删除的节点树是一个完全二叉树
+         *  （7）要删除的节点树不是一个完全二叉树
+         */
+        return deleteBinarySearchTreeResult;
+    }
+
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
@@ -783,7 +836,7 @@ public class Miasnshi75_3 {
         TreeNode searchBSTArrayTreeNode = m.arrayToBinaryTree(searchBSTArray);
         TreeNode searchBSTResult = m.searchBST(searchBSTArrayTreeNode, 2);
         Integer[] searchBSTResultArray = m.binaryTreeToArray(searchBSTResult);
-        Integer[] searchBSTAssertResultArray = {2,1,3};
-        Assert.isTrue(Arrays.equals(searchBSTResultArray,searchBSTAssertResultArray), "算法错误");
+        Integer[] searchBSTAssertResultArray = {2, 1, 3};
+        Assert.isTrue(Arrays.equals(searchBSTResultArray, searchBSTAssertResultArray), "算法错误");
     }
 }
