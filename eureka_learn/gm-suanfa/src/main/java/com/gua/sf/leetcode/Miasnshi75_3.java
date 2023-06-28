@@ -749,14 +749,18 @@ public class Miasnshi75_3 {
      * <p>
      * 进阶： 要求算法时间复杂度为 O(h)，h 为树的高度。
      */
-    public TreeNode deleteBinarySearchTreeResult;
 
     public TreeNode deleteNode(TreeNode root, int key) {
         /**
          * 分析
+         * 二叉搜索树的小的节点在左，大节点在右。
+         * 所以，先要搞清楚二叉排序树是如何构造的
          * 1.递归，深度优先
-         * 2.用全局变量返回结果
          * 3.判断，如果当前节点是要删除的节点。如果当前节点有左子节点，当前节点父节点指向当前节点；然后判断当前节点是否有右节点，如果右，根据右节点的大小，来决定右节点的位置
+         * 4.递归遍历
+         * （1）找到要删除的节点。
+         * （2）父节点指向左子节点
+         * （3）左子节点指向右子节点
          * 4.分析多种情况，
          * （1）要删除的节点是root节点
          * （2）要删除的节点是叶子节点
@@ -766,8 +770,41 @@ public class Miasnshi75_3 {
          *  (6)要删除的节点树是一个完全二叉树
          *  （7）要删除的节点树不是一个完全二叉树
          */
-        return deleteBinarySearchTreeResult;
+
+
+        return root;
     }
+
+    public void findDeleteTreeNode(TreeNode parentTreeNode, boolean parentLeftFlag, TreeNode treeNode, int key) {
+        if (treeNode == null) {
+            return;
+        }
+        if (treeNode.val == key) {
+
+            if (treeNode.left == null && treeNode.right == null) {
+
+                if (parentLeftFlag) {
+                    parentTreeNode.left = null;
+                } else {
+                    parentTreeNode.right = null;
+                }
+            }
+
+            if(treeNode.left!=null&&treeNode.right!=null){
+
+            }
+            if(treeNode.left!=null&&treeNode.right==null){
+                if (parentLeftFlag) {
+                    parentTreeNode.left = treeNode.left;
+                } else {
+                    parentTreeNode.right = treeNode.left;
+                }
+            }
+        }
+        findDeleteTreeNode(treeNode, true, treeNode.left, key);
+        findDeleteTreeNode(treeNode, false, treeNode.right, key);
+    }
+
 
     public static void main(String[] args) {
 
