@@ -137,6 +137,30 @@ public class Miasnshi75_3 {
         return root;
     }
 
+    /**
+     * 数组转化成二叉排序树
+     *
+     * @param array
+     * @return
+     */
+    public TreeNode arrayToBinarySortTree(Integer[] array) {
+        if (array == null || array.length == 0) {
+            return null;
+        }
+        TreeNode root = new TreeNode(array[0]);
+        for (int i = 1; i < array.length; i++) {
+            Integer val = array[i];
+            TreeNode treeNode = new TreeNode(val);
+            // todo 这里需要递归方法
+            if (val > root.val) {
+                root.right = treeNode;
+            } else {
+                root.left = treeNode;
+            }
+        }
+        return arrayToTreeNode(array, 0);
+    }
+
     public void printBinaryTreeToArray(TreeNode treeNode) {
         if (treeNode == null) {
             return;
@@ -790,10 +814,10 @@ public class Miasnshi75_3 {
                 }
             }
 
-            if(treeNode.left!=null&&treeNode.right!=null){
+            if (treeNode.left != null && treeNode.right != null) {
 
             }
-            if(treeNode.left!=null&&treeNode.right==null){
+            if (treeNode.left != null && treeNode.right == null) {
                 if (parentLeftFlag) {
                     parentTreeNode.left = treeNode.left;
                 } else {
