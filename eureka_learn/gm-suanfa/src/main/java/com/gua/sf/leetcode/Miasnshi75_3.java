@@ -65,6 +65,7 @@ public class Miasnshi75_3 {
         if (treeNode == null) {
             return new Integer[]{};
         }
+        countBinaryTreeNodeNodes = 0;
         int treeNodeSize = countBinaryTreeNodeNodes(treeNode);
         Integer[] array = new Integer[treeNodeSize];
         binaryTreeToArray(array, treeNode, 0);
@@ -150,15 +151,26 @@ public class Miasnshi75_3 {
         TreeNode root = new TreeNode(array[0]);
         for (int i = 1; i < array.length; i++) {
             Integer val = array[i];
-            TreeNode treeNode = new TreeNode(val);
-            // todo 这里需要递归方法
-            if (val > root.val) {
-                root.right = treeNode;
+            insertBinarySortTree(root, val);
+        }
+        return root;
+    }
+
+    public void insertBinarySortTree(TreeNode treeNode, Integer val) {
+        TreeNode now = new TreeNode(val);
+        if (val > treeNode.val) {
+            if (treeNode.right != null) {
+                insertBinarySortTree(treeNode.right, val);
             } else {
-                root.left = treeNode;
+                treeNode.right = now;
+            }
+        } else {
+            if (treeNode.left != null) {
+                insertBinarySortTree(treeNode.left, val);
+            } else {
+                treeNode.left = now;
             }
         }
-        return arrayToTreeNode(array, 0);
     }
 
     public void printBinaryTreeToArray(TreeNode treeNode) {
@@ -899,5 +911,14 @@ public class Miasnshi75_3 {
         Integer[] searchBSTResultArray = m.binaryTreeToArray(searchBSTResult);
         Integer[] searchBSTAssertResultArray = {2, 1, 3};
         Assert.isTrue(Arrays.equals(searchBSTResultArray, searchBSTAssertResultArray), "算法错误");
+
+
+
+        Integer[] binarySortTreeArray = {2, 3, 1};
+        TreeNode binarySortTree = m.arrayToBinarySortTree(binarySortTreeArray);
+        Integer[] binarySortTreeToArray = m.binaryTreeToArray(binarySortTree);
+        Integer[] binarySortTreeResultArray = {2, 1, 3};
+        Assert.isTrue(Arrays.equals(binarySortTreeResultArray, binarySortTreeToArray), "算法错误");
+
     }
 }
