@@ -140,6 +140,7 @@ public class Miasnshi75_3 {
 
     /**
      * 数组转化成二叉排序树
+     * 这个方法还有点问题，需要调整一下
      *
      * @param array
      * @return
@@ -785,60 +786,58 @@ public class Miasnshi75_3 {
      * <p>
      * 进阶： 要求算法时间复杂度为 O(h)，h 为树的高度。
      */
+    /**
+     * 分析
+     * 二叉搜索树的小的节点在左，大节点在右。
+     * 所以，先要搞清楚二叉排序树是如何构造的:先从根节点开始，每一个值先和根节点比较，然后形成最新的叶子节点。
+     * insert方法动态构造每一个新节点
+     * 首先构造根节点，然后每一个节点和根节点进行比较，小于根节点，继续和左子节点比较；大于根节点，继续和右子节点比较；直到最后成为一个叶子节点
+     * 1.递归，深度优先
+     * 3.判断，如果当前节点是要删除的节点。如果当前节点有左子节点，当前节点父节点指向当前节点；然后判断当前节点是否有右节点，如果右，根据右节点的大小，来决定右节点的位置
+     * 4.递归遍历
+     * （1）找到要删除的节点。
+     * （2）父节点指向左子节点
+     * （3）左子节点指向右子节点
+     * 4.分析多种情况，
+     * （1）要删除的节点是root节点
+     * （2）要删除的节点是叶子节点
+     * （3）要删除的节点只有左节点
+     * （4）要删除的节点只有右节点
+     * （5）要删除的节点既有左节点，也有右节点
+     */
 
     public TreeNode deleteNode(TreeNode root, int key) {
-        /**
-         * 分析
-         * 二叉搜索树的小的节点在左，大节点在右。
-         * 所以，先要搞清楚二叉排序树是如何构造的:先从根节点开始，每一个值先和根节点比较，然后形成最新的叶子节点。
-         * insert方法动态构造每一个新节点
-         * 首先构造根节点，然后每一个节点和根节点进行比较，小于根节点，继续和左子节点比较；大于根节点，继续和右子节点比较；直到最后成为一个叶子节点
-         * 1.递归，深度优先
-         * 3.判断，如果当前节点是要删除的节点。如果当前节点有左子节点，当前节点父节点指向当前节点；然后判断当前节点是否有右节点，如果右，根据右节点的大小，来决定右节点的位置
-         * 4.递归遍历
-         * （1）找到要删除的节点。
-         * （2）父节点指向左子节点
-         * （3）左子节点指向右子节点
-         * 4.分析多种情况，
-         * （1）要删除的节点是root节点
-         * （2）要删除的节点是叶子节点
-         * （3）要删除的节点只有左节点
-         * （4）要删除的节点只有右节点
-         * （5）要删除的节点既有左节点，也有右节点
-         */
-
-
+        if (root == null) {
+            return null;
+        }
+        if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+            return root;
+        }
+        if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+            return root;
+        }
+        if (root.val == key) {
+            if (root.left == null && root.right == null) {
+                return null;
+            }
+            if (root.right == null) {
+                return root.left;
+            }
+            if (root.left == null) {
+                return root.right;
+            }
+            TreeNode successor = root.right;
+            while (successor.left != null) {
+                successor = successor.left;
+            }
+            root.right = deleteNode(root.right, successor.val);
+            successor.right = root.right;
+            successor.left = root.left;
+            return successor;
+        }
         return root;
-    }
-
-    public void findDeleteTreeNode(TreeNode parentTreeNode, boolean parentLeftFlag, TreeNode treeNode, int key) {
-        if (treeNode == null) {
-            return;
-        }
-        if (treeNode.val == key) {
-
-            if (treeNode.left == null && treeNode.right == null) {
-
-                if (parentLeftFlag) {
-                    parentTreeNode.left = null;
-                } else {
-                    parentTreeNode.right = null;
-                }
-            }
-
-            if (treeNode.left != null && treeNode.right != null) {
-
-            }
-            if (treeNode.left != null && treeNode.right == null) {
-                if (parentLeftFlag) {
-                    parentTreeNode.left = treeNode.left;
-                } else {
-                    parentTreeNode.right = treeNode.left;
-                }
-            }
-        }
-        findDeleteTreeNode(treeNode, true, treeNode.left, key);
-        findDeleteTreeNode(treeNode, false, treeNode.right, key);
     }
 
 
@@ -913,12 +912,22 @@ public class Miasnshi75_3 {
         Assert.isTrue(Arrays.equals(searchBSTResultArray, searchBSTAssertResultArray), "算法错误");
 
 
-
         Integer[] binarySortTreeArray = {2, 3, 1};
         TreeNode binarySortTree = m.arrayToBinarySortTree(binarySortTreeArray);
         Integer[] binarySortTreeToArray = m.binaryTreeToArray(binarySortTree);
         Integer[] binarySortTreeResultArray = {2, 1, 3};
         Assert.isTrue(Arrays.equals(binarySortTreeResultArray, binarySortTreeToArray), "算法错误");
+
+
+
+        Integer[] binarySortTreeDeleteArray = {5,3,6,2,4,null,7};
+        TreeNode deleteBinarySortTree = m.arrayToBinarySortTree(binarySortTreeDeleteArray);
+        TreeNode deleteBinarySortTreeResult = m.deleteNode(deleteBinarySortTree, 3);
+        Integer[] deleteBinarySortTreeResultArray = m.binaryTreeToArray(deleteBinarySortTreeResult);
+        Integer[] deleteAssertResultArray = {5,4,6,2,null,null,7};
+        TreeNode deleteAssertResultTreeNode = m.arrayToBinarySortTree(deleteAssertResultArray);
+        Integer[] deleteAssertResultEqulaArray = m.binaryTreeToArray(deleteAssertResultTreeNode);
+        Assert.isTrue(Arrays.equals(deleteAssertResultEqulaArray, deleteBinarySortTreeResultArray), "算法错误");
 
     }
 }
