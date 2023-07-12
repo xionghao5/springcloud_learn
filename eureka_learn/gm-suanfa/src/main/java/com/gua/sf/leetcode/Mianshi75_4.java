@@ -44,6 +44,7 @@ public class Mianshi75_4 {
      * @return
      */
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        // 图这种数据结构不常用；通常可以用邻接矩阵和邻接表来表示
 
         return false;
     }
