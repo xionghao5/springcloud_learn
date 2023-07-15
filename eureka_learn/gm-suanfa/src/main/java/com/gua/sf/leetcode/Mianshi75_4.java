@@ -45,6 +45,7 @@ public class Mianshi75_4 {
      */
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
         // 图这种数据结构不常用；通常可以用邻接矩阵和邻接表来表示
+        // 图这种数据结构有哪些应用呢？
 
         return false;
     }
