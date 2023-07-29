@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * 面试必考精华版，75 题覆盖全量考点
  */
-public class Miasnshi75_3 {
+public class Mianshi75_3 {
 
 
     /**
@@ -844,7 +844,7 @@ public class Miasnshi75_3 {
     public static void main(String[] args) {
 
         Integer[] array = {3, 9, 20, null, null, 15, 7};
-        Miasnshi75_3 m = new Miasnshi75_3();
+        Mianshi75_3 m = new Mianshi75_3();
         TreeNode treeNode = m.arrayToTreeNode(array);
         TreeNode diguiTreeNode = m.arrayToTreeNode(array);
         m.printBinaryTreeToArray(treeNode);
