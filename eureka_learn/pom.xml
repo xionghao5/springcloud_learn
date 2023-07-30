@@ -34,6 +34,7 @@
         <module>gm-suanfa</module>
         <module>gm-interview</module>
         <module>gm-kafka</module>
+        <module>gm-game</module>
     </modules>
 
 
