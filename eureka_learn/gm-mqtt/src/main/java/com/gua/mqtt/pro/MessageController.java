@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageController {
 
     @Autowired
-    MqttConfig mqttConfig;
+    MqttValue mqttValue;
 
     @Autowired
     private MqttSender mqttSender;

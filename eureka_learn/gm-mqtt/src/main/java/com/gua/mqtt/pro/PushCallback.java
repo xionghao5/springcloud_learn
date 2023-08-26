@@ -14,14 +14,14 @@ public class PushCallback<component> implements MqttCallback {
 
     private MqttPushClient client;
 
-    private MqttConfig mqttConfiguration;
+    private MqttValue mqttValue;
 
     @Resource
     MqttService mqttService;
 
-    public PushCallback(MqttPushClient client, MqttConfig mqttConfiguration) {
+    public PushCallback(MqttPushClient client, MqttValue mqttValue) {
         this.client = client;
-        this.mqttConfiguration = mqttConfiguration;
+        this.mqttValue = mqttValue;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PushCallback<component> implements MqttCallback {
                 try {
                     log.info("==============》》》[MQTT] 连接丢失，尝试重连...");
                     MqttPushClient mqttPushClient = new MqttPushClient();
-                    mqttPushClient.connect(mqttConfiguration);
+                    mqttPushClient.connect(mqttValue);
                     if (MqttPushClient.getClient().isConnected()) {
                         log.info("=============>>重连成功");
                     }

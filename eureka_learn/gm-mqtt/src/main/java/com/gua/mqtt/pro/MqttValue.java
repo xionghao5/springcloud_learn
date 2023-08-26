@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-public class MqttConfig {
+public class MqttValue {
 
     /**
      * 链接url

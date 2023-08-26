@@ -40,22 +40,22 @@ public class MqttPushClient {
     /**
      * 连接
      */
-    public void connect(MqttConfig mqttConfig) {
+    public void connect(MqttValue mqttValue) {
         MqttClient client;
         try {
-            String clientId = mqttConfig.getClientId();
+            String clientId = mqttValue.getClientId();
             clientId += System.currentTimeMillis();
-            client = new MqttClient(mqttConfig.getUrl(), clientId, new MemoryPersistence());
-            MqttConnectOptions options = getOption(mqttConfig.getUsername(), mqttConfig.getPassword(),
-                    mqttConfig.getTimeout(), mqttConfig.getKeepAlive());
+            client = new MqttClient(mqttValue.getUrl(), clientId, new MemoryPersistence());
+            MqttConnectOptions options = getOption(mqttValue.getUsername(), mqttValue.getPassword(),
+                    mqttValue.getTimeout(), mqttValue.getKeepAlive());
             MqttPushClient.setClient(client);
             try {
-                client.setCallback(new PushCallback<Object>(this, mqttConfig));
+                client.setCallback(new PushCallback<Object>(this, mqttValue));
                 if (!client.isConnected()) {
                     client.connect(options);
                     log.info("================>>>MQTT连接成功<<======================");
                     //订阅主题
-                    subscribe(mqttConfig.getTopic(), mqttConfig.getQos());
+                    subscribe(mqttValue.getTopic(), mqttValue.getQos());
                 } else {// 这里的逻辑是如果连接不成功就重新连接
                     client.disconnect();
                     client.connect(options);

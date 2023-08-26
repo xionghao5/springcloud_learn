@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class MqttServiceImpl implements MqttService {
 
     @Autowired
-    MqttConfig mqttConfig;
+    MqttValue mqttValue;
 
     @Autowired
     private MqttSender mqttSender;
@@ -21,7 +21,7 @@ public class MqttServiceImpl implements MqttService {
     @Override
     public void sendMessage() {
         String jsonStr = null;
-        mqttSender.send(mqttConfig.getTopic()[0], jsonStr);
+        mqttSender.send(mqttValue.getTopic()[0], jsonStr);
 
     }
 
