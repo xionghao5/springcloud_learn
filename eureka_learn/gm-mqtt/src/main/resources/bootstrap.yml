@@ -1,6 +1,17 @@
 spring:
   application:
     name: gm-mqtt
+  mqtt:
+    url: tcp://broker.emqx.io:1883
+    username: admin
+    password: password
+    client-id: 0ba851e2e83609b9
+    id: test10000011
+    topics: v4/p/post/thing/live/json/1.1
+    completion-timeout: 3000
+    timeout: 30
+    keep-alive: 60
+    qos: 1
 
 server:
   port: 9111
@@ -9,3 +20,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9000/eureka/
+
