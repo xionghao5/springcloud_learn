@@ -35,6 +35,7 @@
         <module>gm-interview</module>
         <module>gm-kafka</module>
         <module>gm-game</module>
+        <module>gm-mqtt</module>
     </modules>
 
 
