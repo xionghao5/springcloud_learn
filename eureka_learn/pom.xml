@@ -38,6 +38,7 @@
         <module>gm-mqtt</module>
         <module>gm-xxl-job</module>
         <module>gm-elasticsearch</module>
+        <module>gm-weixin-app</module>
     </modules>
 
 

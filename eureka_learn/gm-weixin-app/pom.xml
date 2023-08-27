@@ -7,7 +7,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gm-xxl-job</artifactId>
+    <artifactId>gm-weixin-app</artifactId>
     <packaging>pom</packaging>
     <groupId>com.gua</groupId>
     <version>0.0.1-SNAPSHOT</version>
@@ -35,11 +35,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- xxl-job-core -->
+        <!--微信小程序-->
         <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>2.4.0</version>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>3.8.0</version>
         </dependency>
     </dependencies>
 

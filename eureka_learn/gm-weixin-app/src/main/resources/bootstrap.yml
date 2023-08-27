@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: gm-weixin-app
+
+server:
+  port: 9114
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+wx:
+  miniapp:
+    appid: your-appid
+    appsecret: your-appsecret
+
+## 参考： https://www.zhihu.com/tardis/zm/art/608460933?source_id=1005
