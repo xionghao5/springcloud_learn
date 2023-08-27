@@ -37,6 +37,7 @@
         <module>gm-game</module>
         <module>gm-mqtt</module>
         <module>gm-xxl-job</module>
+        <module>gm-elasticsearch</module>
     </modules>
 
 

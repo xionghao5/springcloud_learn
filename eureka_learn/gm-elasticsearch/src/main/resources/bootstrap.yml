@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: gm-es
+  data:
+    elasticsearch: ## es地址
+
+      cluster-nodes: 127.0.0.1:9300
+
+server:
+  port: 9113
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+
+
+## 参考：https://juejin.cn/post/6844903601844797454
+## 因为springboot的版本过低，导致只能采用低版本的es,es的版本为2.2.0
