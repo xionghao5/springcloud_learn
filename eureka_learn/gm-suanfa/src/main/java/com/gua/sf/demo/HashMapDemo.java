@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class HashMapDemo {
     public static void main(String[] args) {
-        int size = 1000000;
+        int size = 100000;
 
         Map<Integer, Integer> map = new HashMap(size);
 
